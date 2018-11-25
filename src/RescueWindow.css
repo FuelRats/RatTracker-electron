@@ -1,0 +1,70 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#root {
+    min-height: 100%;
+}
+
+.rootElement {
+    min-height: 100%;
+}
+
+.mainContainer {
+    height: 100vh;
+    width: 100%;
+    min-height: 100%;
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
+}
+
+.mainContainer .gridItem {
+    border: 1px solid #FF7100;
+    padding: 10px;
+}
+
+.mainContainer .rescuesView {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.mainContainer .rescuesView table {
+    width: 100%;
+}
+
+.mainContainer .rescuesView table th {
+    text-align: left;
+}
+
+.mainContainer .selectedCaseView {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.mainContainer .assignedCaseView {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.mainContainer .playerInfoView {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.mainContainer .filterInfoView {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
