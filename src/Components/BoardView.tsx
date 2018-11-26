@@ -1,14 +1,22 @@
 import * as React from "react";
 import { withRatData, RatDataProps } from "src/Lib/Decorators";
 import { observer } from "mobx-react";
+import "./BoardView.css";
 @observer
 class BoardView extends React.Component<RatDataProps> {
+	selectRescue(rescueId: string, e: any) {
+		this.props.store.selectedRescue = rescueId;
+	}
 	render() {
 		let rescueItems = [];
 		for (let rescueKey in this.props.store.rescues) {
 			let rescue = this.props.store.rescues[rescueKey];
 			rescueItems.push(
-				<tr key={rescue.id}>
+				<tr
+					key={rescue.id}
+					className="rescueRow"
+					onClick={e => this.selectRescue(rescue.id, e)}
+				>
 					<td align={"center"}>
 						#{rescue.attributes.data.boardIndex}
 					</td>
@@ -34,9 +42,9 @@ class BoardView extends React.Component<RatDataProps> {
 								if (_rat.length > 0) {
 									_rat = _rat[0];
 									return (
-										<div key={_rat.id + "-" + rescue.id}>
+										<li key={_rat.id + "-" + rescue.id}>
 											{_rat.attributes.name}
-										</div>
+										</li>
 									);
 								}
 								return null;
@@ -50,12 +58,12 @@ class BoardView extends React.Component<RatDataProps> {
 			<table>
 				<thead>
 					<tr>
-						<th>Case No.</th>
-						<th align={"center"}>Platform</th>
+						<th className="caseNumber">Case No.</th>
+						<th className="platform">Platform</th>
 						<th>Client</th>
 						<th>System</th>
-						<th align={"center"}>Code Red</th>
-						<th align={"center"}>Active</th>
+						<th className="codeRed">Code Red</th>
+						<th className="active">Active</th>
 						<th>Assigned Rats</th>
 					</tr>
 				</thead>

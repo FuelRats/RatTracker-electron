@@ -1,0 +1,15 @@
+.rescueRow:nth-child(odd) {
+    background-color: hsla(27, 100%, 50%, 0.089);
+}
+
+.rescueRow:hover {
+    background-color: hsla(27, 100%, 50%, 0.26);
+    cursor: pointer;
+}
+
+thead th.caseNumber,
+thead th.platform,
+thead th.codeRed,
+thead th.active {
+    text-align: center !important;
+}
