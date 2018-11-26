@@ -8,11 +8,11 @@ export type RatDataProps = {
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export default function withRatData() {
+export function withRatData() {
 	return function<T extends RatDataProps>(
 		component: React.ComponentClass<T>
 	) {
-		class RatDataKeeper extends React.Component<any, any> {
+		class RatDataKeeper extends React.Component<T> {
 			render() {
 				const Component = component as any;
 				return <Component {...this.state} {...this.props} />;

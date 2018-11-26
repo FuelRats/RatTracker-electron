@@ -1,16 +1,11 @@
 import * as React from "react";
 import "./App.css";
 import { observer } from "mobx-react";
-import { RootStore } from "./Lib/Stores";
 import { autorun } from "mobx";
-import withRatData from "./Lib/Decorators";
+import { withRatData, RatDataProps } from "./Lib/Decorators";
 
 @observer
-class App extends React.Component<
-	{
-		store: RootStore;
-	} & {}
-> {
+class App extends React.Component<RatDataProps> {
 	public async componentDidMount() {
 		autorun(() => {
 			if (this.props.store!.authenticated) {

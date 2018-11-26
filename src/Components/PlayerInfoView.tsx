@@ -1,14 +1,9 @@
 import { observer } from "mobx-react";
 import * as React from "react";
-import { RootStore } from "../Lib/Stores";
-import withRatData from "src/Lib/Decorators";
+import { withRatData, RatDataProps } from "src/Lib/Decorators";
 
 @observer
-class PlayerInfoView extends React.Component<
-	{
-		store: RootStore;
-	} & {}
-> {
+class PlayerInfoView extends React.Component<RatDataProps> {
 	render() {
 		return <div>Player Info View</div>;
 	}

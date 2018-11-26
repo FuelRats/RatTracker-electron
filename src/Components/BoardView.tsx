@@ -1,17 +1,12 @@
 import * as React from "react";
-import { RootStore } from "../Lib/Stores";
-import withRatData from "src/Lib/Decorators";
+import { withRatData, RatDataProps } from "src/Lib/Decorators";
 import { observer } from "mobx-react";
 @observer
-class BoardView extends React.Component<
-	{
-		store: RootStore;
-	} & {}
-> {
+class BoardView extends React.Component<RatDataProps> {
 	render() {
 		let rescueItems = [];
-		for (let rescueKey in this.props.store!.rescues) {
-			let rescue = this.props.store!.rescues[rescueKey];
+		for (let rescueKey in this.props.store.rescues) {
+			let rescue = this.props.store.rescues[rescueKey];
 			rescueItems.push(
 				<tr key={rescue.id}>
 					<td align={"center"}>
@@ -31,7 +26,7 @@ class BoardView extends React.Component<
 					<td>
 						{rescue.relationships.rats.data &&
 							rescue.relationships.rats.data.map((rat: any) => {
-								let _rat = this.props.store!.rats.filter(
+								let _rat = this.props.store.rats.filter(
 									(r: any) => {
 										return r.id == rat.id;
 									}

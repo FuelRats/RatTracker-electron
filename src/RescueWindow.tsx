@@ -9,15 +9,11 @@ import BoardView from "./Components/BoardView";
 import SelectedCaseView from "./Components/SelectedCaseView";
 import AssignedCaseView from "./Components/AssignedCaseView";
 import FilterInfoView from "./Components/FilterInfoView";
-import withRatData from "./Lib/Decorators";
 import { observer } from "mobx-react";
+import { withRatData, RatDataProps } from "./Lib/Decorators";
 
 @observer
-class RescueWindow extends React.Component<
-	{
-		store: RootStore;
-	} & {}
-> {
+class RescueWindow extends React.Component<RatDataProps> {
 	// @ts-ignore
 	private ratSocket: RatSocket;
 
