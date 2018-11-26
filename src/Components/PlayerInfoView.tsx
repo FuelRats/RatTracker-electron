@@ -1,15 +1,17 @@
-import {inject, observer} from "mobx-react";
+import { observer } from "mobx-react";
 import * as React from "react";
-import {RootStore} from "../Lib/Stores";
+import { RootStore } from "../Lib/Stores";
+import withRatData from "src/Lib/Decorators";
 
-@inject('store')
 @observer
-class PlayerInfoView extends React.Component<{
-    store?: RootStore
-}, {}> {
-    render() {
-        return <div>Player Info View</div>
-    }
+class PlayerInfoView extends React.Component<
+	{
+		store: RootStore;
+	} & {}
+> {
+	render() {
+		return <div>Player Info View</div>;
+	}
 }
 
-export default PlayerInfoView;
+export default withRatData()(PlayerInfoView);

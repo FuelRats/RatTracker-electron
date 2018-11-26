@@ -1,15 +1,16 @@
-import {inject, observer} from "mobx-react";
 import * as React from "react";
-import {RootStore} from "../Lib/Stores";
-
-@inject('store')
+import { RootStore } from "../Lib/Stores";
+import withRatData from "src/Lib/Decorators";
+import { observer } from "mobx-react";
 @observer
-class AssignedCaseView extends React.Component<{
-    store?: RootStore
-}, {}> {
-    render() {
-        return <div>Assigned Case View</div>
-    }
+class AssignedCaseView extends React.Component<
+	{
+		store: RootStore;
+	} & {}
+> {
+	render() {
+		return <div>Assigned Case View</div>;
+	}
 }
 
-export default AssignedCaseView;
+export default withRatData()(AssignedCaseView);

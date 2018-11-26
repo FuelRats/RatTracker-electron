@@ -22,8 +22,9 @@ function createWindow() {
     'web-security': false,
     width: 1440,
   });
-
-  win.toggleDevTools();
+  if (!!process.env.ELECTRON_START_URL) {
+    win.toggleDevTools();
+  }
 
   const rtURL = process.env.ELECTRON_START_URL || url.format({
     nodeIntegration: false,
