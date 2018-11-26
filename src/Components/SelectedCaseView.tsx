@@ -20,8 +20,7 @@ class SelectedCaseView extends React.Component<RatDataProps> {
 			this.selectedRescue = null;
 		} else {
 			if (!!this.props.store.rescues[rescueId]) {
-				const rescue = this.props.store.rescues[rescueId];
-				this.selectedRescue = rescue;
+				this.selectedRescue = this.props.store.rescues[rescueId];
 			}
 		}
 	}
@@ -30,65 +29,74 @@ class SelectedCaseView extends React.Component<RatDataProps> {
 		return (
 			<div>
 				<div>Selected Case</div>
-				<table style={{ width: "100%" }}>
-					<tbody>
-						<tr>
-							<td>Client:</td>
-							<td>{this.selectedRescue.attributes.client}</td>
-						</tr>
-						<tr>
-							<td>System:</td>
-							<td>{this.selectedRescue.attributes.system}</td>
-						</tr>
-						<tr>
-							<td>Status:</td>
-							<td>{this.selectedRescue.attributes.status}</td>
-						</tr>
-						<tr>
-							<td style={{ verticalAlign: "top" }}>Rats:</td>
-							<td>
-								{this.selectedRescue.relationships.rats.data &&
-									this.selectedRescue.relationships.rats.data.map(
-										(rat: any) => {
-											let _rat = this.props.store.rats.filter(
-												(r: any) => {
-													return r.id == rat.id;
-												}
-											);
-											if (_rat.length > 0) {
-												_rat = _rat[0];
-												return (
-													<div
-														key={
-															_rat.id +
-															"-" +
-															this.selectedRescue
-																.id
-														}
-													>
-														{_rat.attributes.name}
-													</div>
+				{this.selectedRescue ? (
+					<table style={{ width: "100%" }}>
+						<tbody>
+							<tr>
+								<td>Client:</td>
+								<td>{this.selectedRescue.attributes.client}</td>
+							</tr>
+							<tr>
+								<td>System:</td>
+								<td>{this.selectedRescue.attributes.system}</td>
+							</tr>
+							<tr>
+								<td>Status:</td>
+								<td>{this.selectedRescue.attributes.status}</td>
+							</tr>
+							<tr>
+								<td style={{ verticalAlign: "top" }}>Rats:</td>
+								<td>
+									{this.selectedRescue.relationships.rats
+										.data &&
+										this.selectedRescue.relationships.rats.data.map(
+											(rat: any) => {
+												let _rat = this.props.store.rats.filter(
+													(r: any) => {
+														return r.id == rat.id;
+													}
 												);
+												if (_rat.length > 0) {
+													_rat = _rat[0];
+													return (
+														<div
+															key={
+																_rat.id +
+																"-" +
+																this
+																	.selectedRescue
+																	.id
+															}
+														>
+															{
+																_rat.attributes
+																	.name
+															}
+														</div>
+													);
+												}
+												return null;
 											}
-											return null;
-										}
-									)}
-							</td>
-						</tr>
-						<tr>
-							<td>Distance:</td>
-							<td>
-								<i>Not implemented</i>
-							</td>
-						</tr>
-						<tr>
-							<td>Jumps:</td>
-							<td>
-								<i>Not implemented</i>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+										)}
+								</td>
+							</tr>
+							<tr>
+								<td>Distance:</td>
+								<td>
+									<i>Not implemented</i>
+								</td>
+							</tr>
+							<tr>
+								<td>Jumps:</td>
+								<td>
+									<i>Not implemented</i>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				) : (
+					<i>No rescue selected</i>
+				)}
 			</div>
 		);
 	}

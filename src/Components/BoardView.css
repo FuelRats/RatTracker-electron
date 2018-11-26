@@ -1,5 +1,5 @@
 .rescueRow:nth-child(odd) {
-    background-color: hsla(27, 100%, 50%, 0.089);
+    background-color: hsla(27, 100%, 50%, 0.19);
 }
 
 .rescueRow:hover {
