@@ -24,8 +24,7 @@ class RescueWindow extends React.Component<RatDataProps> {
 		this.ratSocket
 			.on("ratsocket:connect", async () => await this.fetchRescues())
 			.on("rescueCreated", (data: any) => this.updateRescues(data))
-			.on("rescueUpdated", (data: any) => this.updateRescues(data))
-			.on("rescueDeleted", (data: any) => console.log(data));
+			.on("rescueUpdated", (data: any) => this.updateRescues(data));
 	}
 
 	async fetchRescues() {
