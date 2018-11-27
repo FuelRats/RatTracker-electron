@@ -6,20 +6,8 @@ export type RatDataProps = {
 	store: RootStore;
 };
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
-export function withRatData() {
-	return function<T extends RatDataProps>(
-		component: React.ComponentClass<T>
-	) {
-		class RatDataKeeper extends React.Component<T> {
-			render() {
-				const Component = component as any;
-				return <Component {...this.state} {...this.props} />;
-			}
-		}
-		return (inject("store")(
-			observer(RatDataKeeper)
-		) as any) as React.ComponentClass<Omit<T, keyof RatDataProps>>;
-	};
+export function withRatData<T extends React.ComponentClass<RatDataProps>>(
+	component: T
+): T {
+	return inject("store")(observer(component)) as T;
 }

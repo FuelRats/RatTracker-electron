@@ -1,10 +1,10 @@
 import * as React from "react";
 import "./App.css";
-import { observer } from "mobx-react";
+
 import { autorun } from "mobx";
 import { withRatData, RatDataProps } from "./Lib/Decorators";
 
-@observer
+@withRatData
 class App extends React.Component<RatDataProps> {
 	public async componentDidMount() {
 		autorun(() => {
@@ -38,4 +38,4 @@ class App extends React.Component<RatDataProps> {
 	}
 }
 
-export default withRatData()(App);
+export default App;

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { withRatData, RatDataProps } from "src/Lib/Decorators";
-import { observer } from "mobx-react";
 import "./BoardView.css";
-@observer
+
+@withRatData
 class BoardView extends React.Component<RatDataProps> {
 	selectRescue(rescueId: string, e: any) {
 		this.props.store.selectedRescue = rescueId;
@@ -73,4 +73,4 @@ class BoardView extends React.Component<RatDataProps> {
 	}
 }
 
-export default withRatData()(BoardView);
+export default BoardView;

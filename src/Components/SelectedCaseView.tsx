@@ -1,9 +1,8 @@
-import { observer } from "mobx-react";
 import * as React from "react";
 import { withRatData, RatDataProps } from "src/Lib/Decorators";
 import { autorun, observable } from "mobx";
 
-@observer
+@withRatData
 class SelectedCaseView extends React.Component<RatDataProps> {
 	constructor(props: RatDataProps) {
 		super(props);
@@ -102,4 +101,4 @@ class SelectedCaseView extends React.Component<RatDataProps> {
 	}
 }
 
-export default withRatData()(SelectedCaseView);
+export default SelectedCaseView;

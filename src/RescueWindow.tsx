@@ -9,10 +9,9 @@ import BoardView from "./Components/BoardView";
 import SelectedCaseView from "./Components/SelectedCaseView";
 import AssignedCaseView from "./Components/AssignedCaseView";
 import FilterInfoView from "./Components/FilterInfoView";
-import { observer } from "mobx-react";
 import { withRatData, RatDataProps } from "./Lib/Decorators";
 
-@observer
+@withRatData
 class RescueWindow extends React.Component<RatDataProps> {
 	// @ts-ignore
 	private ratSocket: RatSocket;
@@ -102,19 +101,19 @@ class RescueWindow extends React.Component<RatDataProps> {
 			<div className="rootElement">
 				<div className="mainContainer">
 					<div className="gridItem rescuesView">
-						<BoardView />
+						<BoardView {...this.props} />
 					</div>
 					<div className="gridItem selectedCaseView">
-						<SelectedCaseView />
+						<SelectedCaseView {...this.props} />
 					</div>
 					<div className="gridItem assignedCaseView">
-						<AssignedCaseView />
+						<AssignedCaseView {...this.props} />
 					</div>
 					<div className="gridItem playerInfoView">
-						<PlayerInfoView />
+						<PlayerInfoView {...this.props} />
 					</div>
 					<div className="gridItem filterInfoView">
-						<FilterInfoView />
+						<FilterInfoView {...this.props} />
 					</div>
 				</div>
 			</div>
@@ -122,4 +121,4 @@ class RescueWindow extends React.Component<RatDataProps> {
 	}
 }
 
-export default withRatData()(RescueWindow);
+export default RescueWindow;
