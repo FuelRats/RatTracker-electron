@@ -21,18 +21,33 @@ class RescueWindow extends React.Component<RatDataProps> {
 		this.ratSocket = new RatSocket();
 
 		this.ratSocket
-			.on("ratsocket:connect", async () => await this.fetchRescues())
+			.on("ratsocket:connect", async () => await this.loadInitialData())
 			.on("rescueCreated", (data: any) => this.updateRescues(data))
 			.on("rescueUpdated", (data: any) => this.updateRescues(data));
 	}
 
-	async fetchRescues() {
-		let _rescues: any = await this.ratSocket.request({
-			action: ["rescues", "read"],
-			data: {},
-			$not: { status: "closed" }
+	async loadInitialData() {
+		let _profile: any = await this.ratSocket.request({
+			action: ["users", "profile"],
+			data: {}
 		});
-		this.updateRescues(_rescues);
+
+		this.props.store.userProfile = _profile;
+
+		const userGroups = _profile.data.relationships.groups.data;
+
+		const isDrilled = userGroups.findIndex((r: any) => r.id == "rat") > -1;
+
+		if (isDrilled) {
+			let _rescues: any = await this.ratSocket.request({
+				action: ["rescues", "read"],
+				data: {},
+				$not: { status: "closed" }
+			});
+			this.updateRescues(_rescues);
+		} else {
+			window.location.href = "/NotDrilled";
+		}
 	}
 
 	updateRescues(data: any) {
@@ -42,12 +57,12 @@ class RescueWindow extends React.Component<RatDataProps> {
 				return inc.type === "rats";
 			});
 
-			let removeRats: any[] = this.props.store!.rats.map((r: any) => {
+			let removeRats: any[] = this.props.store.rats.map((r: any) => {
 				return r.id;
 			});
 
 			for (let newRat of rats) {
-				let removeId = this.props.store!.rats.indexOf(
+				let removeId = this.props.store.rats.findIndex(
 					(r: any) => r.id == newRat.id
 				);
 				if (removeId > -1) {
@@ -59,7 +74,7 @@ class RescueWindow extends React.Component<RatDataProps> {
 			}
 
 			for (let removeRat of removeRats) {
-				let removeId = this.props.store!.rats.indexOf(
+				let removeId = this.props.store.rats.findIndex(
 					(r: any) => r.id == removeRat
 				);
 				if (removeId > -1) {
@@ -73,6 +88,17 @@ class RescueWindow extends React.Component<RatDataProps> {
 		if (!!data.data) {
 			let newRescues = Array.isArray(data.data) ? data.data : [data.data];
 
+			if (!!data.meta && data.meta.event === "rescueCreated") {
+				if (data.data.attributes.codeRed) {
+					var synth = window.speechSynthesis;
+					synth.speak(
+						new SpeechSynthesisUtterance(
+							"Warning, Incoming Code Red!"
+						)
+					);
+				}
+			}
+
 			rescues = newRescues.filter((inc: any) => {
 				return inc.attributes.status !== "closed";
 			});
@@ -82,11 +108,11 @@ class RescueWindow extends React.Component<RatDataProps> {
 			});
 
 			for (let newRescue of rescues) {
-				this.props.store!.rescues[newRescue.id] = newRescue;
+				this.props.store.rescues[newRescue.id] = newRescue;
 			}
 
 			for (let removeRescue of removeRescues) {
-				delete this.props.store!.rescues[removeRescue.id];
+				delete this.props.store.rescues[removeRescue.id];
 			}
 		}
 	}
