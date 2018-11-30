@@ -20,6 +20,8 @@ class SelectedCaseView extends React.Component<RatDataProps> {
 		} else {
 			if (!!this.props.store.rescues[rescueId]) {
 				this.selectedRescue = this.props.store.rescues[rescueId];
+			} else {
+				this.selectedRescue = null;
 			}
 		}
 	}
@@ -42,6 +44,14 @@ class SelectedCaseView extends React.Component<RatDataProps> {
 							<tr>
 								<td>Status:</td>
 								<td>{this.selectedRescue.attributes.status}</td>
+							</tr>
+							<tr>
+								<td>Code Red:</td>
+								<td>
+									{this.selectedRescue.attributes.codeRed
+										? "Yes"
+										: "No"}
+								</td>
 							</tr>
 							<tr>
 								<td style={{ verticalAlign: "top" }}>Rats:</td>
