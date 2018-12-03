@@ -34,13 +34,9 @@ class BoardView extends React.Component<RatDataProps> {
 					<td>
 						{rescue.relationships.rats.data &&
 							rescue.relationships.rats.data.map((rat: any) => {
-								let _rat = this.props.store.rats.filter(
-									(r: any) => {
-										return r.id == rat.id;
-									}
-								);
-								if (_rat.length > 0) {
-									_rat = _rat[0];
+								let _rat = this.props.store.rats[rat.id];
+
+								if (!!_rat) {
 									return (
 										<li key={_rat.id + "-" + rescue.id}>
 											{_rat.attributes.name}

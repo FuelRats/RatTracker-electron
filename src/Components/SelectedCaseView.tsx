@@ -60,13 +60,10 @@ class SelectedCaseView extends React.Component<RatDataProps> {
 										.data &&
 										this.selectedRescue.relationships.rats.data.map(
 											(rat: any) => {
-												let _rat = this.props.store.rats.filter(
-													(r: any) => {
-														return r.id == rat.id;
-													}
-												);
-												if (_rat.length > 0) {
-													_rat = _rat[0];
+												let _rat = this.props.store
+													.rats[rat.id];
+
+												if (!!_rat) {
 													return (
 														<div
 															key={

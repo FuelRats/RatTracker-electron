@@ -9,6 +9,8 @@ const qs = require('querystring');
 
 let win;
 
+let edOverlay;
+
 let ratAuth = {
   req: null,
   res: null,
@@ -22,9 +24,20 @@ function createWindow() {
     'web-security': false,
     width: 1440,
   });
-  if (!!process.env.ELECTRON_START_URL) {
-    win.toggleDevTools();
-  }
+
+  edOverlay = new BrowserWindow({
+    alwaysOnTop: true,
+    transparent: true,
+    resizable: false,
+    frame: false,
+    width: 400,
+    height: 300,
+    show: false
+  });
+
+  //if (!!process.env.ELECTRON_START_URL) {
+  win.toggleDevTools();
+  //}
 
   const rtURL = process.env.ELECTRON_START_URL || url.format({
     nodeIntegration: false,
@@ -33,7 +46,16 @@ function createWindow() {
     slashes: true,
   });
 
+  const overlayURL = process.env.ELECTRON_START_URL ? 'http://localhost:3000/overlay' : url.format({
+    nodeIntegration: false,
+    pathname: path.join(__dirname, '/../build/overlay.html'),
+    protocol: 'file:',
+    slashes: true,
+  });
+
   win.loadURL(rtURL);
+
+  edOverlay.loadURL(overlayURL);
 
   win.webContents.on('will-navigate', function (event, newUrl) {
     console.log(newUrl);
@@ -59,17 +81,27 @@ function createWindow() {
         }
       }
     }
+
+    if (newUrl === 'http://localhost:3000/rescues') {
+
+    }
   });
 
   win.on('closed', () => {
+    edOverlay.close();
     win = null;
   });
+
+  edOverlay.on('closed', () => {
+    edOverlay = null;
+  })
 }
 
 app.on('ready', createWindow);
 
 app.on('before-quit', () => {
   win.close();
+  edOverlay.close();
 });
 
 app.on('window-all-closed', () => {

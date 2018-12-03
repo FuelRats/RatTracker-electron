@@ -4,6 +4,6 @@ export class RootStore {
 	@observable userProfile: any = {};
 	@observable authenticated: boolean = false;
 	@observable rescues: any = {};
-	@observable rats: any = [];
+	@observable rats: any = {};
 	@observable selectedRescue: any;
 }
