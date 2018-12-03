@@ -3,18 +3,32 @@ import "./App.css";
 
 import { autorun } from "mobx";
 import { withRatData, RatDataProps } from "./Lib/Decorators";
+import { Redirect } from "react-router-dom";
 
 @withRatData
-class App extends React.Component<RatDataProps> {
+class App extends React.Component<RatDataProps, { shouldRedirect: boolean }> {
+	constructor(props: RatDataProps) {
+		super(props);
+		this.state = {
+			shouldRedirect: false
+		};
+	}
+
 	public async componentDidMount() {
 		autorun(() => {
-			if (this.props.store!.authenticated) {
-				location.href = "/Rescues";
+			if (this.props.store.authenticated) {
+				this.setState({
+					shouldRedirect: true
+				});
 			}
 		});
 	}
 
 	public render() {
+		if (this.state.shouldRedirect) {
+			return <Redirect to={{ pathname: "/Rescues" }} />;
+		}
+
 		return (
 			<div className="rootElement">
 				<div>
@@ -22,11 +36,10 @@ class App extends React.Component<RatDataProps> {
 				</div>
 				<div>
 					Hi there,{" "}
-					{this.props.store!.authenticated
-						? this.props.store!.userProfile.data.attributes.email
+					{this.props.store.authenticated
+						? this.props.store.userProfile.data.attributes.email
 						: "you're not authenticated"}
 				</div>
-
 				<svg id="brandSvg" viewBox="0 0 512 512">
 					<path
 						fill="currentColor"
