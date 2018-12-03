@@ -1,0 +1,8 @@
+body div.overlay {
+    background-color: hsla(0, 0%, 0%, 0.39);
+    -webkit-app-region: drag;
+    border: 2px solid #FF7100;
+    box-sizing: border-box;
+    min-height: 100%;
+    height: 300px;
+}

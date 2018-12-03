@@ -31,8 +31,7 @@ function createWindow() {
     resizable: false,
     frame: false,
     width: 400,
-    height: 300,
-    show: false
+    height: 300
   });
 
   //if (!!process.env.ELECTRON_START_URL) {
@@ -46,9 +45,10 @@ function createWindow() {
     slashes: true,
   });
 
-  const overlayURL = process.env.ELECTRON_START_URL ? 'http://localhost:3000/overlay' : url.format({
+  const overlayURL = process.env.ELECTRON_START_URL ? 'http://localhost:3000/#/Overlay' : url.format({
     nodeIntegration: false,
-    pathname: path.join(__dirname, '/../build/overlay.html'),
+    pathname: path.join(__dirname, '/../build/index.html'),
+    hash: '/Overlay',
     protocol: 'file:',
     slashes: true,
   });

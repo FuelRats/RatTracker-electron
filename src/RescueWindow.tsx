@@ -10,14 +10,23 @@ import SelectedCaseView from "./Components/SelectedCaseView";
 import AssignedCaseView from "./Components/AssignedCaseView";
 import FilterInfoView from "./Components/FilterInfoView";
 import { withRatData, RatDataProps } from "./Lib/Decorators";
+import { Redirect } from "react-router-dom";
 
 @withRatData
-class RescueWindow extends React.Component<RatDataProps> {
+class RescueWindow extends React.Component<
+	RatDataProps,
+	{ CanUseRatTracker: boolean }
+> {
 	// @ts-ignore
 	private ratSocket: RatSocket;
 
 	public constructor(props: { store: RootStore }) {
 		super(props);
+
+		this.state = {
+			CanUseRatTracker: true
+		};
+
 		this.ratSocket = new RatSocket();
 
 		this.ratSocket
@@ -46,7 +55,9 @@ class RescueWindow extends React.Component<RatDataProps> {
 			});
 			this.updateRescues(_rescues);
 		} else {
-			//window.location.href = "/NotDrilled";
+			this.setState({
+				CanUseRatTracker: false
+			});
 		}
 	}
 
@@ -102,7 +113,9 @@ class RescueWindow extends React.Component<RatDataProps> {
 	}
 
 	public render() {
-		console.log("Test");
+		if (!this.state.CanUseRatTracker) {
+			return <Redirect to={{ pathname: "/NotDrilled" }} />;
+		}
 		return (
 			<div className="rootElement">
 				<div className="mainContainer">
