@@ -20,12 +20,12 @@ class Layout extends React.Component<ILayoutProps, any> {
 
 	public async componentDidMount() {
 		if (Auth.checkIfAuthenticated() && (await Auth.validateToken())) {
-			this.store!.userProfile = JSON.parse(
+			this.store.userProfile = JSON.parse(
 				localStorage.getItem("rt-userProfile") || "{}"
 			);
-			this.store!.authenticated = true;
+			this.store.authenticated = true;
 		} else {
-			this.store!.authenticated = true;
+			this.store.authenticated = true;
 			Auth.sendToAuthenticate();
 		}
 	}
