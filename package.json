@@ -2,6 +2,7 @@
   "name": "rattracker",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "mobx": "^5.6.0",
     "mobx-react": "^5.4.2",
@@ -18,7 +19,8 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "electron": "electron .",
-    "dev": "concurrently --kill-others \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && cross-env ELECTRON_DISABLE_SECURITY_WARNINGS=1 ELECTRON_START_URL=http://localhost:3000 electron .\""
+    "dev": "concurrently --kill-others \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && cross-env ELECTRON_DISABLE_SECURITY_WARNINGS=1 ELECTRON_START_URL=http://localhost:3000 electron .\"",
+    "build_and_run": "react-scripts-ts build && electron ."
   },
   "devDependencies": {
     "@types/jest": "^23.3.9",
