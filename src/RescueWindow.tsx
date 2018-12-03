@@ -46,40 +46,19 @@ class RescueWindow extends React.Component<RatDataProps> {
 			});
 			this.updateRescues(_rescues);
 		} else {
-			window.location.href = "/NotDrilled";
+			//window.location.href = "/NotDrilled";
 		}
 	}
 
 	updateRescues(data: any) {
-		let rats: any = [];
+		let rats: any = {};
 		if (!!data.included) {
 			rats = data.included.filter((inc: any) => {
 				return inc.type === "rats";
 			});
 
-			let removeRats: any[] = this.props.store.rats.map((r: any) => {
-				return r.id;
-			});
-
 			for (let newRat of rats) {
-				let removeId = this.props.store.rats.indexOf(
-					(r: any) => r.id == newRat.id
-				);
-				if (removeId > -1) {
-					removeRats.splice(removeId, 1);
-					this.props.store.rats[removeId] = newRat;
-				} else {
-					this.props.store.rats.push(newRat);
-				}
-			}
-
-			for (let removeRat of removeRats) {
-				let removeId = this.props.store.rats.indexOf(
-					(r: any) => r.id == removeRat
-				);
-				if (removeId > -1) {
-					this.props.store.rats.splice(removeId, 1);
-				}
+				this.props.store.rats[newRat.id] = newRat;
 			}
 		}
 
@@ -123,6 +102,7 @@ class RescueWindow extends React.Component<RatDataProps> {
 	}
 
 	public render() {
+		console.log("Test");
 		return (
 			<div className="rootElement">
 				<div className="mainContainer">
