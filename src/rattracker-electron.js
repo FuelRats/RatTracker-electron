@@ -20,7 +20,7 @@ function createWindow() {
   win = new BrowserWindow({
     alwaysOnTop: false,
     height: 768,
-    'node-integration': false,
+    'node-integration': true,
     'web-security': false,
     width: 1440,
   });
@@ -29,9 +29,12 @@ function createWindow() {
     alwaysOnTop: true,
     transparent: true,
     resizable: false,
+    'node-integration': true,
     frame: false,
     width: 400,
-    height: 300
+    height: 300,
+    fullscreenable: false,
+    skipTaskbar: true
   });
 
   //if (!!process.env.ELECTRON_START_URL) {
@@ -39,14 +42,14 @@ function createWindow() {
   //}
 
   const rtURL = process.env.ELECTRON_START_URL || url.format({
-    nodeIntegration: false,
+    nodeIntegration: true,
     pathname: path.join(__dirname, '/../build/index.html'),
     protocol: 'file:',
     slashes: true,
   });
 
   const overlayURL = process.env.ELECTRON_START_URL ? 'http://localhost:3000/#/Overlay' : url.format({
-    nodeIntegration: false,
+    nodeIntegration: true,
     pathname: path.join(__dirname, '/../build/index.html'),
     hash: '/Overlay',
     protocol: 'file:',

@@ -7,6 +7,7 @@ export class RatSocket extends RatEmitter {
 	private clientId: string | null;
 	private welcomeTimeout: number | null;
 	private openRequests: any;
+	public connected: boolean;
 	constructor() {
 		super(true, [
 			"rescueCreated",
@@ -24,6 +25,7 @@ export class RatSocket extends RatEmitter {
 		this.clientId = RatConfig.GetRequestId("rtClient");
 		this.welcomeTimeout = null;
 		this.openRequests = {};
+		this.connected = false;
 	}
 
 	async connect(token: string) {
@@ -93,11 +95,13 @@ export class RatSocket extends RatEmitter {
 
 	connectionOpened() {
 		window.console.log("RatTracker - Connection opened");
+		this.connected = true;
 	}
 
 	connectionClosed(data: Object) {
 		window.console.log("RatTracker - Connection closed, reopening");
 		window.console.debug(data);
+		this.connected = false;
 	}
 
 	errorReceived(data: Object) {

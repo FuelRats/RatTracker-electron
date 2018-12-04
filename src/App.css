@@ -7,7 +7,7 @@ body {
 
 .rootElement {
     background-color: rgb(0, 0, 0);
-    color: #FF7100;
+    color: #D4575B;
     display: flex;
     flex-direction: column;
     align-content: center;

@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -22,7 +23,7 @@ html, body {
 }
 
 .mainContainer .gridItem {
-    border: 1px solid #FF7100;
+    border: 1px solid #D4575B;
     padding: 10px;
 }
 

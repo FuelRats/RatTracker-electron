@@ -108,8 +108,10 @@ class RescueWindow extends React.Component<
 	}
 
 	public async componentDidMount() {
-		await this.ratSocket.connect(Auth.getToken() as string);
-		await this.ratSocket.subscribe("0xDEADBEEF");
+		if (!this.ratSocket.connected) {
+			await this.ratSocket.connect(Auth.getToken() as string);
+			await this.ratSocket.subscribe("0xDEADBEEF");
+		}
 	}
 
 	public render() {
@@ -141,3 +143,9 @@ class RescueWindow extends React.Component<
 }
 
 export default RescueWindow;
+
+declare global {
+	interface Window {
+		require: any;
+	}
+}
