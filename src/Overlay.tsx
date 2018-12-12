@@ -50,6 +50,30 @@ class Overlay extends React.Component<RatDataProps> {
 				CanUseRatTracker: false
 			});
 		}
+
+		const winInst = (window as any).windowInstance;
+		const header = document.getElementsByClassName("header")[0];
+		winInst.setIgnoreMouseEvents(true, { forward: true });
+
+		header!.addEventListener("mouseleave", () => {
+			winInst.setIgnoreMouseEvents(true, { forward: true });
+		});
+		header!.addEventListener("mouseenter", () => {
+			winInst.setIgnoreMouseEvents(false, { forward: true });
+		});
+
+		const root = document.getElementById("root");
+
+		(window as any).dragItem = document.getElementsByClassName(
+			"overlay"
+		)[0];
+		(window as any).dragHandle = header;
+
+		root!.addEventListener("mousedown", (window as any).dragStart, false);
+		root!.addEventListener("mouseup", (window as any).dragEnd, false);
+		root!.addEventListener("mousemove", (window as any).drag, false);
+
+		document.getElementsByTagName("body")[0].style.overflow = "hidden";
 	}
 
 	updateRescues(data: any) {
@@ -175,7 +199,9 @@ class Overlay extends React.Component<RatDataProps> {
 			<div className="rootElement overlay">
 				<div className="header">
 					RatTracker
-					<div style={{ float: "right" }}>{currentRatName}</div>
+					<div style={{ float: "right" }} className="ratName">
+						{currentRatName}
+					</div>
 				</div>
 				<table>
 					<thead>

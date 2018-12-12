@@ -33,12 +33,16 @@ function createWindow() {
     frame: false,
     width: 400,
     height: 300,
-    fullscreenable: false,
+    fullscreenable: true,
     skipTaskbar: true
   });
+  edOverlay.setFullScreen(true);
 
   //if (!!process.env.ELECTRON_START_URL) {
-  win.toggleDevTools();
+  win.openDevTools({});
+  edOverlay.openDevTools({
+    mode: 'detach'
+  });
   //}
 
   const rtURL = process.env.ELECTRON_START_URL || url.format({
@@ -59,6 +63,21 @@ function createWindow() {
   win.loadURL(rtURL);
 
   edOverlay.loadURL(overlayURL);
+
+  let reloadOnce = false;
+
+  edOverlay.webContents.on('did-finish-load', function () {
+    if (!reloadOnce) {
+      edOverlay.setIgnoreMouseEvents(true, {
+        forward: true
+      });
+      edOverlay.setIgnoreMouseEvents(false, {
+        forward: true
+      });
+      edOverlay.reload();
+      reloadOnce = true;
+    }
+  });
 
   win.webContents.on('will-navigate', function (event, newUrl) {
     console.log(newUrl);

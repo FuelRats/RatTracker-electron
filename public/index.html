@@ -10,11 +10,74 @@
   <title>The Fuel Rats Mischief - RatTracker</title>
 </head>
 
-<body>
+<body class="click-through"
+data-tag="body.click-through">
   <noscript>
     You need to enable JavaScript to run this app.
   </noscript>
   <div id="root"></div>
+  <script type="text/javascript">
+    const win_elec = require('electron');
+    window.win_electron = win_elec;
+    window.windowInstance = window.win_electron.remote.getCurrentWindow();
+
+    var active = false;
+    var currentX;
+    var currentY;
+    var initialX;
+    var initialY;
+    var xOffset = 0;
+    var yOffset = 0;
+
+    function dragStart(e) {
+      if (e.type === "touchstart") {
+        initialX = e.touches[0].clientX - xOffset;
+        initialY = e.touches[0].clientY - yOffset;
+      } else {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+      }
+
+      if (e.target === window.dragHandle) {
+        active = true;
+      }
+    }
+
+    function dragEnd(e) {
+      initialX = currentX;
+      initialY = currentY;
+
+      active = false;
+    }
+
+    function drag(e) {
+      if (active) {
+      
+        e.preventDefault();
+      
+        if (e.type === "touchmove") {
+          currentX = e.touches[0].clientX - initialX;
+          currentY = e.touches[0].clientY - initialY;
+        } else {
+          currentX = e.clientX - initialX;
+          currentY = e.clientY - initialY;
+        }
+
+        xOffset = currentX;
+        yOffset = currentY;
+
+        setTranslate(currentX, currentY, dragItem);
+      }
+    }
+
+    function setTranslate(xPos, yPos, el) {
+      el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+    }
+
+    window.dragStart = dragStart;
+    window.dragEnd = dragEnd;
+    window.drag = drag;
+  </script>
 </body>
 
 </html>

@@ -1,21 +1,22 @@
 body div.overlay {
-    background-color: hsla(0, 0%, 0%, 0.39);
-
-    min-height: 100%;
+    background-color: hsla(0, 0%, 0%, 0.5);
     height: 200px;
-    transform: perspective(600px) rotateX(10deg) rotateY(30deg) rotateZ(1deg) translate3d(30px, 30px, 0px);
+    min-height: unset;
+    max-height: 300px !important;
+    /*transform: perspective(600px) rotateX(10deg) rotateY(30deg) rotateZ(1deg) translate3d(30px, 30px, 0px);*/
     display: flex;
     flex-direction: column;
     align-content: flex-start;
     align-items: flex-start;
-    min-height: 100%;
-    min-width: 100%;
+    min-width: 400px;
     justify-content: start;
     justify-items: start;
+    position: absolute;
+    top: 30%;
+    left: 5%;
 }
 
 .overlay .header {
-    -webkit-app-region: drag;
     border-top: 1px solid hsla(358, 46%, 46%, 0.747);
     border-bottom: 2px solid #D4575B;
     width: 100%;
@@ -24,4 +25,5 @@ body div.overlay {
 
 .overlay table {
     width: 100%;
+    pointer-events: none;
 }
