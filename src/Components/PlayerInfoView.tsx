@@ -65,46 +65,54 @@ class PlayerInfoView extends React.Component<RatDataProps> {
 				<div>
 					<b>Player Info View</b>
 				</div>
-				<table style={{ width: "100%" }}>
-					<tbody>
-						<tr>
-							<td>Commander</td>
-							<td align="right">{_data.Player.CMDR.Commander}</td>
-						</tr>
-						<tr>
-							<td>Current system</td>
-							<td align="right">{_data.Player.Pos.StarSystem}</td>
-						</tr>
-						{_data.Player.Pos.Docked ? (
+				{_data.Player.CMDR ? (
+					<table style={{ width: "100%" }}>
+						<tbody>
 							<tr>
-								<td>Docked at</td>
+								<td>Commander</td>
 								<td align="right">
-									{_data.Player.Pos.Body} (
-									{_data.Player.Pos.BodyType})
+									{_data.Player.CMDR.Commander}
 								</td>
 							</tr>
-						) : null}
-						<tr>
-							<td>Current ship</td>
-							<td align="right">
-								{_data.Player.CMDR.ShipName}
-								<br />
-								{_data.Player.CMDR.Ship} (
-								{_data.Player.CMDR.ShipIdent})
-							</td>
-						</tr>
-						<tr>
-							<td>Gamemode</td>
-							<td align="right">{_data.Gamemode}</td>
-						</tr>
-						<tr>
-							<td style={{ verticalAlign: "top" }}>Status</td>
-							<td align="right">
-								{this.getStatusFlags(_data.Status.Flags)}
-							</td>
-						</tr>
-					</tbody>
-				</table>
+							<tr>
+								<td>Current system</td>
+								<td align="right">
+									{_data.Player.Pos.StarSystem}
+								</td>
+							</tr>
+							{_data.Player.Pos.Docked ? (
+								<tr>
+									<td>Docked at</td>
+									<td align="right">
+										{_data.Player.Pos.Body} (
+										{_data.Player.Pos.BodyType})
+									</td>
+								</tr>
+							) : null}
+							<tr>
+								<td>Current ship</td>
+								<td align="right">
+									{_data.Player.CMDR.ShipName}
+									<br />
+									{_data.Player.CMDR.Ship} (
+									{_data.Player.CMDR.ShipIdent})
+								</td>
+							</tr>
+							<tr>
+								<td>Gamemode</td>
+								<td align="right">{_data.Gamemode}</td>
+							</tr>
+							<tr>
+								<td style={{ verticalAlign: "top" }}>Status</td>
+								<td align="right">
+									{this.getStatusFlags(_data.Status.Flags)}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				) : (
+					JSON.stringify(_data)
+				)}
 			</div>
 		);
 	}

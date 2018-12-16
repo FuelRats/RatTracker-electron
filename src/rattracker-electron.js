@@ -21,7 +21,7 @@ global.JournalReader = journalReader;
 
 let win;
 
-//let edOverlay;
+let edOverlay;
 
 let ratAuth = {
   req: null,
@@ -46,7 +46,8 @@ function createWindow() {
     width: 400,
     height: 200,
     fullscreenable: false,
-    skipTaskbar: true
+    skipTaskbar: true,
+    show: false
   });
 
   const rtURL = process.env.ELECTRON_START_URL || url.format({
@@ -76,9 +77,9 @@ function createWindow() {
       mode: 'detach'
     });
   }
-
-  let reloadOnce = false;
   /*
+    let reloadOnce = false;
+
     edOverlay.webContents.on('did-finish-load', function () {
       if (!reloadOnce) {
         edOverlay.setIgnoreMouseEvents(true, {
@@ -92,8 +93,8 @@ function createWindow() {
 
         edOverlay.show();
       }
-    });
-  */
+    });*/
+
   win.webContents.on('will-navigate', function (event, newUrl) {
     console.log(newUrl);
     if (newUrl.indexOf('https://fuelrats.com/authorize') >= 0) {
@@ -136,9 +137,20 @@ function createWindow() {
 
   edOverlay.on('closed', () => {
     edOverlay = null;
-  })
-
+  });
 }
+
+setInterval(() => {
+  var d = journalReader.Data();
+
+  if (d.Online && typeof d.Status.GuiFocus != 'undefined' && d.Status.GuiFocus == 0) {
+    if (!edOverlay.isVisible())
+      edOverlay.showInactive();
+  } else {
+    if (edOverlay.isVisible())
+      edOverlay.hide();
+  }
+}, 1000);
 
 app.on('ready', createWindow);
 

@@ -1,6 +1,6 @@
 {
   "name": "rattracker",
-  "version": "0.1.4-alpha",
+  "version": "0.1.5-alpha",
   "author": {
     "name": "CMDR NoLifeKing",
     "email": "nolifeking@fuelrats.com"
@@ -55,7 +55,8 @@
     "nsis": {
       "allowToChangeInstallationDirectory": true,
       "shortcutName": "RatTracker",
-      "oneClick": false
+      "oneClick": false,
+      "guid": "e484463e-48c6-5486-b28b-8a6da45bd9c0"
     },
     "publish": {
       "provider": "github",
