@@ -9,7 +9,10 @@ export class Auth {
 	public static checkIfAuthenticated() {
 		const token = Auth.getToken() || window.location.hash || false;
 		if (token) {
-			localStorage.setItem("rt-authtoken", token.replace("#", ""));
+			localStorage.setItem(
+				"rt-authtoken",
+				token.replace("#/?access_token=", "")
+			);
 		}
 		return !!token;
 	}

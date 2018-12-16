@@ -21,7 +21,7 @@ global.JournalReader = journalReader;
 
 let win;
 
-let edOverlay;
+//let edOverlay;
 
 let ratAuth = {
   req: null,
@@ -36,20 +36,20 @@ function createWindow() {
     'web-security': false,
     width: 1440,
   });
-
-  edOverlay = new BrowserWindow({
-    alwaysOnTop: true,
-    transparent: true,
-    resizable: false,
-    'node-integration': true,
-    frame: false,
-    width: 400,
-    height: 300,
-    fullscreenable: true,
-    skipTaskbar: true,
-    show: false
-  });
-  edOverlay.setFullScreen(true);
+  /*
+    edOverlay = new BrowserWindow({
+      alwaysOnTop: true,
+      transparent: true,
+      resizable: false,
+      'node-integration': true,
+      frame: false,
+      width: 400,
+      height: 300,
+      fullscreenable: true,
+      skipTaskbar: true,
+      show: false
+    });
+    edOverlay.setFullScreen(true);*/
 
   const rtURL = process.env.ELECTRON_START_URL || url.format({
     nodeIntegration: true,
@@ -57,44 +57,47 @@ function createWindow() {
     protocol: 'file:',
     slashes: true,
   });
-
-  const overlayURL = process.env.ELECTRON_START_URL ? 'http://localhost:3000/#/Overlay' : url.format({
-    nodeIntegration: true,
-    pathname: path.join(__dirname, '/../build/index.html'),
-    hash: '/Overlay',
-    protocol: 'file:',
-    slashes: true,
-  });
+  /*
+    const overlayURL = process.env.ELECTRON_START_URL ? 'http://localhost:3000/#/Overlay' : url.format({
+      nodeIntegration: true,
+      pathname: path.join(__dirname, '/../build/index.html'),
+      hash: '/Overlay',
+      protocol: 'file:',
+      slashes: true,
+    });*/
 
   win.loadURL(rtURL);
 
-  edOverlay.loadURL(overlayURL);
+  //edOverlay.loadURL(overlayURL);
 
   if (!!process.env.ELECTRON_START_URL) {
-    win.openDevTools({});
-    edOverlay.openDevTools({
-      mode: 'detach'
+    win.openDevTools({
+      //  mode: 'detach'
     });
+    /*edOverlay.openDevTools({
+      mode: 'detach'
+    });*/
   }
 
   let reloadOnce = false;
+  /*
+    edOverlay.webContents.on('did-finish-load', function () {
+      if (!reloadOnce) {
+        edOverlay.setIgnoreMouseEvents(true, {
+          forward: true
+        });
+        edOverlay.setIgnoreMouseEvents(false, {
+          forward: true
+        });
+        edOverlay.reload();
+        reloadOnce = true;
 
-  edOverlay.webContents.on('did-finish-load', function () {
-    if (!reloadOnce) {
-      edOverlay.setIgnoreMouseEvents(true, {
-        forward: true
-      });
-      edOverlay.setIgnoreMouseEvents(false, {
-        forward: true
-      });
-      edOverlay.reload();
-      reloadOnce = true;
-
-      edOverlay.show();
-    }
-  });
-
+        edOverlay.show();
+      }
+    });
+  */
   win.webContents.on('will-navigate', function (event, newUrl) {
+    console.log(newUrl);
     if (newUrl.indexOf('https://fuelrats.com/authorize') >= 0) {
       ratAuth.req = qs.parse(newUrl.split('?')[1]);
     }
@@ -103,8 +106,7 @@ function createWindow() {
       event.preventDefault();
       win.webContents.stop();
       ratAuth.res = qs.parse(newUrl.split('#')[1]);
-
-      if (ratAuth.req.state === ratAuth.res.state) {
+      if (ratAuth.req.state == ratAuth.res.state) {
         if ('undefined' !== typeof (ratAuth.res.error)) {
           win.loadURL(url.format({
             nodeIntegration: false,
@@ -113,27 +115,34 @@ function createWindow() {
             slashes: true,
           }));
         } else {
-          win.loadURL(rtURL + '#' + ratAuth.res.access_token);
+          win.loadURL(url.format({
+            nodeIntegration: true,
+            pathname: path.join(__dirname, '/../build/index.html'),
+            protocol: 'file:',
+            hash: '/?access_token=' + ratAuth.res.access_token,
+            slashes: true,
+          }));
         }
       }
     }
   });
 
   win.on('closed', () => {
-    edOverlay.close();
+    //edOverlay.close();
     win = null;
   });
-
-  edOverlay.on('closed', () => {
-    edOverlay = null;
-  })
+  /*
+    edOverlay.on('closed', () => {
+      edOverlay = null;
+    })
+    */
 }
 
 app.on('ready', createWindow);
 
 app.on('before-quit', () => {
   win.close();
-  edOverlay.close();
+  //edOverlay.close();
 });
 
 app.on('window-all-closed', () => {

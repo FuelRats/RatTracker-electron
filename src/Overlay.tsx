@@ -112,7 +112,7 @@ class Overlay extends React.Component<RatDataProps> {
 	}
 
 	public async componentDidMount() {
-		if (!this.ratSocket.connected) {
+		if (!this.ratSocket.connected && this.props.store.authenticated) {
 			await this.ratSocket.connect(Auth.getToken() as string);
 			await this.ratSocket.subscribe("0xDEADBEEF");
 		}

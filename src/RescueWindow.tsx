@@ -28,12 +28,7 @@ class RescueWindow extends React.Component<
 		super(props);
 
 		let jr = getGlobal("JournalReader");
-
-		//console.log(jr);
-
-		//if (this.props.store.journalData == null) {
 		this.props.store.journalData = jr;
-		//}
 
 		this.state = {
 			CanUseRatTracker: true
@@ -120,7 +115,7 @@ class RescueWindow extends React.Component<
 	}
 
 	public async componentDidMount() {
-		if (!this.ratSocket.connected) {
+		if (!this.ratSocket.connected && this.props.store.authenticated) {
 			await this.ratSocket.connect(Auth.getToken() as string);
 			await this.ratSocket.subscribe("0xDEADBEEF");
 		}
