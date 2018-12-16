@@ -46,13 +46,6 @@ function createWindow() {
   });
   edOverlay.setFullScreen(true);
 
-  //if (!!process.env.ELECTRON_START_URL) {
-  win.openDevTools({});
-  edOverlay.openDevTools({
-    mode: 'detach'
-  });
-  //}
-
   const rtURL = process.env.ELECTRON_START_URL || url.format({
     nodeIntegration: true,
     pathname: path.join(__dirname, '/../build/index.html'),
@@ -71,6 +64,13 @@ function createWindow() {
   win.loadURL(rtURL);
 
   edOverlay.loadURL(overlayURL);
+
+  if (!!process.env.ELECTRON_START_URL) {
+    win.openDevTools({});
+    edOverlay.openDevTools({
+      mode: 'detach'
+    });
+  }
 
   let reloadOnce = false;
 

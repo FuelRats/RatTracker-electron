@@ -1,6 +1,11 @@
 {
   "name": "rattracker",
   "version": "0.1.0",
+  "author": {
+    "name": "CMDR NoLifeKing",
+    "email": "nolifeking@fuelrats.com"
+  },
+  "description": "A tool to help the Rats of Fuel Rats to save clients",
   "private": true,
   "homepage": "./",
   "dependencies": {
@@ -21,7 +26,19 @@
     "eject": "react-scripts-ts eject",
     "electron": "electron .",
     "dev": "concurrently --kill-others \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && cross-env ELECTRON_DISABLE_SECURITY_WARNINGS=1 ELECTRON_START_URL=http://localhost:3000 electron .\"",
-    "build_and_run": "react-scripts-ts build && electron ."
+    "build_and_run": "react-scripts-ts build && electron .",
+    "prod_run": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.fuelrats.rattracker",
+    "productName": "Rat Tracker - The Fuel Rats Mischief",
+    "files": [
+      "src",
+      "build",
+      "node_modules"
+    ]
   },
   "devDependencies": {
     "@types/jest": "^23.3.9",
@@ -32,6 +49,7 @@
     "concurrently": "^4.1.0",
     "cross-env": "^5.2.0",
     "electron": "^2.0.14",
+    "electron-builder": "^20.38.3",
     "typescript": "^3.1.6",
     "wait-on": "^3.2.0"
   }
