@@ -7,6 +7,11 @@ const path = require('path');
 const url = require('url');
 const qs = require('querystring');
 
+const journalReader = require('./Lib/Journal/JournalReader');
+
+const files = journalReader.FileReader.loadLogFiles();
+journalReader.FileReader.monitorChanges(files);
+
 let win;
 
 let edOverlay;
@@ -34,7 +39,8 @@ function createWindow() {
     width: 400,
     height: 300,
     fullscreenable: true,
-    skipTaskbar: true
+    skipTaskbar: true,
+    show: false
   });
   edOverlay.setFullScreen(true);
 
@@ -76,11 +82,12 @@ function createWindow() {
       });
       edOverlay.reload();
       reloadOnce = true;
+
+      edOverlay.show();
     }
   });
 
   win.webContents.on('will-navigate', function (event, newUrl) {
-    console.log(newUrl);
     if (newUrl.indexOf('https://fuelrats.com/authorize') >= 0) {
       ratAuth.req = qs.parse(newUrl.split('?')[1]);
     }
@@ -102,10 +109,6 @@ function createWindow() {
           win.loadURL(rtURL + '#' + ratAuth.res.access_token);
         }
       }
-    }
-
-    if (newUrl === 'http://localhost:3000/rescues') {
-
     }
   });
 
