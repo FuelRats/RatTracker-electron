@@ -1,9 +1,13 @@
 {
   "name": "rattracker",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha",
   "author": {
     "name": "CMDR NoLifeKing",
     "email": "nolifeking@fuelrats.com"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/FuelRats/RatTracker-electron"
   },
   "description": "A tool to help the Rats of Fuel Rats to save clients",
   "private": true,
@@ -29,7 +33,9 @@
     "build_and_run": "react-scripts-ts build && electron .",
     "prod_run": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "publish": "electron-builder --publish",
+    "postinstall": "electron-builder install-app-deps"
   },
   "build": {
     "appId": "com.fuelrats.rattracker",
@@ -38,7 +44,15 @@
       "src",
       "build",
       "node_modules"
-    ]
+    ],
+    "win": {
+      "target": "nsis",
+      "publish": ["github"]
+    },
+    "publish": {
+      "provider": "github",
+      "private": false
+    }
   },
   "devDependencies": {
     "@types/jest": "^23.3.9",
