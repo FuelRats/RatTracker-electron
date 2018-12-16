@@ -49,11 +49,17 @@ class PlayerInfoView extends React.Component<RatDataProps> {
 
 		if (flags == 0) _flags.push("Offline");
 
-		return <div>{_flags.join("<br />")}</div>;
+		return (
+			<div>
+				{_flags.map((i, x) => {
+					return <div key={"flag" + x}>{i}</div>;
+				})}
+			</div>
+		);
 	}
 
 	render() {
-		let _data = this.props.store.journalData.Data();
+		let _data = this.props.store.journalData;
 		return (
 			<div>
 				<div>

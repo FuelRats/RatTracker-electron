@@ -2,7 +2,7 @@ body div.overlay {
 	background-color: hsla(0, 0%, 0%, 0.5);
 	height: 200px;
 	min-height: unset;
-	max-height: 300px !important;
+	max-height: 200px !important;
 	/*transform: perspective(600px) rotateX(10deg) rotateY(30deg) rotateZ(1deg) translate3d(30px, 30px, 0px);*/
 	display: flex;
 	flex-direction: column;
@@ -11,12 +11,13 @@ body div.overlay {
 	min-width: 400px;
 	justify-content: start;
 	justify-items: start;
-	position: absolute;
+	/*position: absolute;
 	top: 30%;
-	left: 5%;
+	left: 5%;*/
 }
 
 .overlay .header {
+	-webkit-app-region: drag;
 	border-top: 1px solid hsla(358, 46%, 46%, 0.747);
 	border-bottom: 2px solid #d4575b;
 	width: 100%;

@@ -7,12 +7,16 @@ export class Auth {
 	}
 
 	public static checkIfAuthenticated() {
-		const token = Auth.getToken() || window.location.hash || false;
+		let token = Auth.getToken();
+		if (!token || token.length < 6) {
+			if (window.location.hash.indexOf("access_token") > -1) {
+				token = window.location.hash.replace("#/?access_token=", "");
+			} else {
+				token = false;
+			}
+		}
 		if (token) {
-			localStorage.setItem(
-				"rt-authtoken",
-				token.replace("#/?access_token=", "")
-			);
+			localStorage.setItem("rt-authtoken", token);
 		}
 		return !!token;
 	}

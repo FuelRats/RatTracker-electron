@@ -53,7 +53,6 @@ module.exports = {
         this.statusfileOnLoad(str);
       }
     });
-    this.readStatusFile(`${this.profileDir}status.json`);
 
     let that = this;
 
@@ -68,7 +67,6 @@ module.exports = {
     }
 
     this.lastStatusLine = fileContent;
-    //edjGui.updateGui();
   },
   logfileOnLoad(fileContent) {
     const lines = fileContent.split('\n');
@@ -80,7 +78,6 @@ module.exports = {
       l++;
     }
     this.lastLine = l;
-    //edjGui.updateGui();
   },
   loadLogFiles() {
     const userProfile = (typeof process.env.HOME !== 'undefined' ? process.env.HOME : process.env.USERPROFILE);
@@ -88,26 +85,6 @@ module.exports = {
     this.profileDir = journalFolder;
     this.selDir = fs.readdirSync(journalFolder);
     return this.selDir;
-  },
-  readStatusFile(fileName) {
-    if (fileName === 'null')
-      return;
-    if (fileName == this.currentStatusTail) {
-      return;
-    }
-
-    console.log('tailing file ' + fileName);
-    const logTail = new Tail(fileName);
-
-    logTail.on('line', line => {
-      logParser.parseStatusFile(line);
-    });
-
-    logTail.on('error', error => {
-      console.error(error);
-    });
-
-    this.currentStatusTail = fileName;
   },
   tailLogFile(fileName) {
     if (fileName === 'null')

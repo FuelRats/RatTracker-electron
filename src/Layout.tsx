@@ -19,7 +19,6 @@ class Layout extends React.Component<ILayoutProps, any> {
 	}
 
 	public async componentDidMount() {
-		console.log(window.location.hash);
 		if (Auth.checkIfAuthenticated() && (await Auth.validateToken())) {
 			this.store.userProfile = JSON.parse(
 				localStorage.getItem("rt-userProfile") || "{}"

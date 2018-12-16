@@ -24,11 +24,13 @@ class RescueWindow extends React.Component<
 	// @ts-ignore
 	private ratSocket: RatSocket;
 
+	private journalReader: any;
+
 	public constructor(props: { store: RootStore }) {
 		super(props);
 
-		let jr = getGlobal("JournalReader");
-		this.props.store.journalData = jr;
+		this.journalReader = getGlobal("JournalReader");
+		this.props.store.journalData = this.journalReader.Data();
 
 		this.state = {
 			CanUseRatTracker: true
@@ -61,6 +63,10 @@ class RescueWindow extends React.Component<
 				$not: { status: "closed" }
 			});
 			this.updateRescues(_rescues);
+
+			setInterval(() => {
+				this.props.store.journalData = this.journalReader.Data();
+			}, 1000);
 		} else {
 			this.setState({
 				CanUseRatTracker: false
