@@ -1,6 +1,6 @@
 {
   "name": "rattracker",
-  "version": "0.1.2-alpha",
+  "version": "0.1.3-alpha",
   "author": {
     "name": "CMDR NoLifeKing",
     "email": "nolifeking@fuelrats.com"
@@ -35,7 +35,7 @@
     "prod_run": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "deploy": "electron-builder --publish always",
+    "deploy": "react-scripts-ts build && electron-builder --publish always",
     "postinstall": "electron-builder install-app-deps"
   },
   "build": {
