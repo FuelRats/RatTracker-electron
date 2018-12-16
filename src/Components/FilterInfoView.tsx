@@ -4,7 +4,13 @@ import { withRatData, RatDataProps } from "src/Lib/Decorators";
 @withRatData
 class FilterInfoView extends React.Component<RatDataProps> {
 	render() {
-		return <div>Filter Info View</div>;
+		return (
+			<div>
+				<div>
+					<b>Filter Info View</b>
+				</div>
+			</div>
+		);
 	}
 }
 

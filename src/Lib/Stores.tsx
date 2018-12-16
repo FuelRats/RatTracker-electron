@@ -6,4 +6,5 @@ export class RootStore {
 	@observable rescues: any = {};
 	@observable rats: any = {};
 	@observable selectedRescue: any;
+	@observable journalData: any = {};
 }

@@ -2,6 +2,7 @@ module.exports = {
     localData: {
         Player: {
             CMDR: null,
+            Cargo: [],
             Rank: {
                 CQC: {
                     Rank: 0,
@@ -46,8 +47,10 @@ module.exports = {
                 Manufactured: []
             }
         },
+        Online: false,
         Gamemode: null,
-        CanSynthesizeLifesupport: false
+        CanSynthesizeLifesupport: false,
+        Status: null
     },
     isJson(line) {
         try {
@@ -61,7 +64,7 @@ module.exports = {
     parseStatusFile(line) {
         if (this.isJson(line)) {
             const status = JSON.parse(line);
-            console.log(status);
+            this.localData.Status = status;
         }
     },
     parseLogLine(line) {
@@ -80,7 +83,7 @@ module.exports = {
                 case 'BuyExplorationData':
                 case 'BuyTradeData':
                 case 'CapShipBond':
-                case 'Cargo':
+
                 case 'CargoDepot':
                 case 'ChangeCrewRole':
                 case 'CollectCargo':
@@ -187,7 +190,6 @@ module.exports = {
                 case 'ShipyardTransfer':
                 case 'ShipyardSwap':
                 case 'ShipTargeted':
-                case 'Shutdown':
                 case 'Statistics':
                 case 'StoredShips':
                 case 'StoredModules':
@@ -199,8 +201,15 @@ module.exports = {
                     // We'll just ignore these events, since they contain nothing funny at the moment.
                     console.log(line);
                     break;
+                case 'Shutdown':
+                    this.localData.Online = false;
+                    break;
                 case 'DiscoveryScan':
                 case 'Music':
+                    break;
+                case 'Cargo':
+                    // TODO: Fix version independent parse
+                    //this.localData.Player.Cargo[logItem.Vessel] = logItem.Inventory;
                     break;
                 case 'Died':
                     // TODO: Notification about client dead
@@ -240,6 +249,7 @@ module.exports = {
                         this.localData.Player.Fuel.Current = logItem.FuelLevel;
                     }
                     this.localData.Gamemode = logItem.GameMode;
+                    this.localData.Online = true;
                     break;
                 case 'Location':
                     this.localData.Player.Pos = {
@@ -364,7 +374,10 @@ module.exports = {
                     break;
                 case 'Loadout':
                     // We want to see what type of ship the user is using.
-                    console.log(logItem);
+                    this.localData.Player.CMDR.Ship = logItem.Ship;
+                    this.localData.Player.CMDR.ShipID = logItem.ShipID;
+                    this.localData.Player.CMDR.ShipName = logItem.ShipName;
+                    this.localData.Player.CMDR.ShipIdent = logItem.ShipIdent;
                     break;
                 case 'SRVDestroyed':
                     console.log(logItem);

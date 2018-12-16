@@ -11,7 +11,7 @@ module.exports = {
   currentLogTail: null,
   currentStatusTail: null,
   getData() {
-    return this.logParser.localData;
+    return logParser.localData;
   },
   checkFiles(evt) {
     this.selDir = evt.target.files;

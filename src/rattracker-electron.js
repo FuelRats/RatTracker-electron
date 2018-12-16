@@ -12,6 +12,8 @@ const journalReader = require('./Lib/Journal/JournalReader');
 const files = journalReader.FileReader.loadLogFiles();
 journalReader.FileReader.monitorChanges(files);
 
+global.JournalReader = journalReader;
+
 let win;
 
 let edOverlay;

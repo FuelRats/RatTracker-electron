@@ -12,6 +12,10 @@ import FilterInfoView from "./Components/FilterInfoView";
 import { withRatData, RatDataProps } from "./Lib/Decorators";
 import { Redirect } from "react-router-dom";
 
+const electron = window.require("electron");
+
+const { getGlobal } = electron.remote;
+
 @withRatData
 class RescueWindow extends React.Component<
 	RatDataProps,
@@ -22,6 +26,14 @@ class RescueWindow extends React.Component<
 
 	public constructor(props: { store: RootStore }) {
 		super(props);
+
+		let jr = getGlobal("JournalReader");
+
+		//console.log(jr);
+
+		//if (this.props.store.journalData == null) {
+		this.props.store.journalData = jr;
+		//}
 
 		this.state = {
 			CanUseRatTracker: true

@@ -9,7 +9,9 @@ class AssignedCaseView extends React.Component<RatDataProps> {
 	render() {
 		return (
 			<div>
-				<div>Assigned Case View</div>
+				<div>
+					<b>Assigned Case View</b>
+				</div>
 				{this.assignedRescue ? (
 					<table style={{ width: "100%" }}>
 						<tbody>

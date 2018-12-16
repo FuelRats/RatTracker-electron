@@ -25,7 +25,7 @@ class Layout extends React.Component<ILayoutProps, any> {
 			);
 			this.store.authenticated = true;
 		} else {
-			this.store.authenticated = true;
+			this.store.authenticated = false;
 			Auth.sendToAuthenticate();
 		}
 	}

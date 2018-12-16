@@ -29,7 +29,9 @@ class SelectedCaseView extends React.Component<RatDataProps> {
 	render() {
 		return (
 			<div>
-				<div>Selected Case</div>
+				<div>
+					<b>Selected Case</b>
+				</div>
 				{this.selectedRescue ? (
 					<table style={{ width: "100%" }}>
 						<tbody>

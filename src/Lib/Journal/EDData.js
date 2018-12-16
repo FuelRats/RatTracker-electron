@@ -1,6 +1,7 @@
 module.exports = {
     Player: {
         CMDR: null,
+        Cargo: [],
         Rank: {
             CQC: {
                 Rank: 0,
