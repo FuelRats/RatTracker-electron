@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'Telegrama Raw';
+  src: url('assets/fonts/telegrama/telegrama_raw-webfont.eot');
+  src:
+    url('assets/fonts/telegrama/telegrama_raw-webfont.eot?#iefix') format('embedded-opentype'),
+    url('assets/fonts/telegrama/telegrama_raw-webfont.woff2') format('woff2'),
+    url('assets/fonts/telegrama/telegrama_raw-webfont.woff') format('woff'),
+    url('assets/fonts/telegrama/telegrama_raw-webfont.ttf') format('truetype'),
+    url('assets/fonts/telegrama/telegrama_raw-webfont.svg#telegramaraw') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Telegrama';
+  src: url('assets/fonts/telegrama/telegrama_render-webfont.eot');
+  src:
+    url('assets/fonts/telegrama/telegrama_render-webfont.eot?#iefix') format('embedded-opentype'),
+    url('assets/fonts/telegrama/telegrama_render-webfont.woff2') format('woff2'),
+    url('assets/fonts/telegrama/telegrama_render-webfont.woff') format('woff'),
+    url('assets/fonts/telegrama/telegrama_render-webfont.ttf') format('truetype'),
+    url('assets/fonts/telegrama/telegrama_render-webfont.svg#telegramarender') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
