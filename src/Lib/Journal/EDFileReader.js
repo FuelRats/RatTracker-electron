@@ -10,6 +10,7 @@ module.exports = {
   lastStatusLine: null,
   currentLogTail: null,
   currentStatusTail: null,
+  foundLogs: false,
   getData() {
     return logParser.localData;
   },
@@ -20,39 +21,40 @@ module.exports = {
   monitorChanges(_selDir) {
     if (_selDir === null)
       return;
-
-    const _files = _selDir;
-    const _fileCount = _files.length;
-    let i = 0;
-    while (i < _fileCount) {
-      if (_files[i].match(/Journal\.\d+\.\d+\.log/gi)) {
-        if (this.lastFile === null || _files[i] !== this.lastFile) {
-          this.lastFile = _files[i];
+    if (this.foundLogs) {
+      const _files = _selDir;
+      const _fileCount = _files.length;
+      let i = 0;
+      while (i < _fileCount) {
+        if (_files[i].match(/Journal\.\d+\.\d+\.log/gi)) {
+          if (this.lastFile === null || _files[i] !== this.lastFile) {
+            this.lastFile = _files[i];
+          }
         }
+        i++;
       }
-      i++;
-    }
-    if (this.lastFile !== null) {
-      fs.readFile(`${this.profileDir}${this.lastFile}`, {
+      if (this.lastFile !== null) {
+        fs.readFile(`${this.profileDir}${this.lastFile}`, {
+          encoding: 'UTF-8'
+        }, (err, str) => {
+          if (err !== null) {}
+          if (typeof str !== 'undefined') {
+            this.logfileOnLoad(str);
+          }
+        });
+
+        this.tailLogFile(`${this.profileDir}${this.lastFile}`);
+      }
+
+      fs.readFile(`${this.profileDir}status.json`, {
         encoding: 'UTF-8'
       }, (err, str) => {
         if (err !== null) {}
         if (typeof str !== 'undefined') {
-          this.logfileOnLoad(str);
+          this.statusfileOnLoad(str);
         }
       });
-
-      this.tailLogFile(`${this.profileDir}${this.lastFile}`);
     }
-
-    fs.readFile(`${this.profileDir}status.json`, {
-      encoding: 'UTF-8'
-    }, (err, str) => {
-      if (err !== null) {}
-      if (typeof str !== 'undefined') {
-        this.statusfileOnLoad(str);
-      }
-    });
 
     let that = this;
 
@@ -83,8 +85,13 @@ module.exports = {
     const userProfile = (typeof process.env.HOME !== 'undefined' ? process.env.HOME : process.env.USERPROFILE);
     const journalFolder = `${userProfile}\\Saved Games\\Frontier Developments\\Elite Dangerous\\`;
     this.profileDir = journalFolder;
-    this.selDir = fs.readdirSync(journalFolder);
-    return this.selDir;
+    if (fs.existsSync(journalFolder)) {
+      this.selDir = fs.readdirSync(journalFolder);
+      this.foundLogs = true;
+      return this.selDir;
+    }
+    this.foundLogs = false;
+    return null;
   },
   tailLogFile(fileName) {
     if (fileName === 'null')

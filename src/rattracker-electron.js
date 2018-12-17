@@ -3,6 +3,12 @@ const {
   BrowserWindow
 } = require('electron');
 
+process.on('uncaughtException', e => {
+  alert('Oops, looks like I made something break, again.. Quitting application!');
+
+  app.exit(1);
+});
+
 const {
   autoUpdater
 } = require("electron-updater");
