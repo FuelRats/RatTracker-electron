@@ -52,24 +52,21 @@ module.exports = {
         CanSynthesizeLifesupport: false,
         Status: null
     },
-    isJson(line) {
+    safeJsonParse(line) {
         try {
-            JSON.parse(line);
+            return JSON.parse(line);
         } catch (e) {
-            return false;
+            return null;
         }
-
-        return true;
     },
     parseStatusFile(line) {
-        if (this.isJson(line)) {
-            const status = JSON.parse(line);
+        const status = this.safeJsonParse(line);
+        if (!!status)
             this.localData.Status = status;
-        }
     },
     parseLogLine(line) {
-        if (this.isJson(line)) {
-            const logItem = JSON.parse(line);
+        const logItem = this.safeJsonParse(line);
+        if (!!logItem) {
             switch (logItem.event) {
                 case 'Continued':
                     // TODO: Handle continued logs
@@ -83,7 +80,6 @@ module.exports = {
                 case 'BuyExplorationData':
                 case 'BuyTradeData':
                 case 'CapShipBond':
-
                 case 'CargoDepot':
                 case 'ChangeCrewRole':
                 case 'CollectCargo':
