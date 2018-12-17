@@ -106,12 +106,10 @@ module.exports = {
                 case 'EngineerContribution':
                 case 'EngineerCraft':
                 case 'EngineerLegacyConvert':
-                case 'EngineerProgress':
                 case 'FactionKillBond':
                 case 'FetchRemoteModule':
                 case 'FighterDestroyed':
                 case 'FighterRebuilt':
-                case 'Fileheader':
                 case 'Friends':
                 case 'Interdiction':
                 case 'HeatWarning':
@@ -128,7 +126,6 @@ module.exports = {
                 case 'MissionCompleted':
                 case 'MissionFailed':
                 case 'MissionRedirected':
-                case 'Missions':
                 case 'ModuleInfo':
                 case 'ModuleBuy':
                 case 'ModuleRetrieve':
@@ -167,7 +164,6 @@ module.exports = {
                 case 'Repair':
                 case 'RepairDrone':
                 case 'RepairAll':
-                case 'Reputation':
                 case 'Ressurect':
                 case 'RestockVehicle':
                 case 'Scan':
@@ -186,7 +182,6 @@ module.exports = {
                 case 'ShipyardTransfer':
                 case 'ShipyardSwap':
                 case 'ShipTargeted':
-                case 'Statistics':
                 case 'StoredShips':
                 case 'StoredModules':
                 case 'TechnologyBroker':
@@ -202,6 +197,13 @@ module.exports = {
                     break;
                 case 'DiscoveryScan':
                 case 'Music':
+                case 'Fileheader':
+                case 'Reputation':
+                case 'EngineerProgress':
+                case 'ReceiveText':
+                case 'Missions':
+                case 'Statistics':
+                case 'FSSSignalDiscovered':
                     break;
                 case 'Cargo':
                     // TODO: Fix version independent parse
