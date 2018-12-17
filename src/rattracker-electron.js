@@ -3,9 +3,20 @@ const {
   BrowserWindow
 } = require('electron');
 
-process.on('uncaughtException', e => {
-  alert('Oops, looks like I made something break, again.. Quitting application!');
+const log = require('electron-log');
 
+const startupDate = new Date().toISOString().replace(/\:/g, '-').replace(/\./g, '-');
+
+log.transports.file.level = 'debug';
+let logPath = log.transports.file.findLogPath().replace('log.log', `log-${startupDate}.log`);
+console.log(logPath);
+log.transports.file.file = logPath;
+log.transports.console.level = 'debug';
+
+log.info('Application started');
+
+process.on('uncaughtException', e => {
+  log.error(e);
   app.exit(1);
 });
 
@@ -24,6 +35,7 @@ const files = journalReader.FileReader.loadLogFiles();
 journalReader.FileReader.monitorChanges(files);
 
 global.JournalReader = journalReader;
+global.Logger = log;
 
 let win;
 
@@ -72,7 +84,6 @@ function createWindow() {
   });
 
   win.loadURL(rtURL);
-
   edOverlay.loadURL(overlayURL);
 
   if (!!process.env.ELECTRON_START_URL) {
@@ -102,7 +113,6 @@ function createWindow() {
     });*/
 
   win.webContents.on('will-navigate', function (event, newUrl) {
-    console.log(newUrl);
     if (newUrl.indexOf('https://fuelrats.com/authorize') >= 0) {
       ratAuth.req = qs.parse(newUrl.split('?')[1]);
     }
@@ -137,11 +147,13 @@ function createWindow() {
   });
 
   win.on('closed', () => {
+    log.info('Closing main window');
     edOverlay.close();
     win = null;
   });
 
   edOverlay.on('closed', () => {
+    log.info('Closing overlay window');
     edOverlay = null;
   });
 }
@@ -150,22 +162,30 @@ setInterval(() => {
   var d = journalReader.Data();
 
   if (d.Online && typeof d.Status.GuiFocus != 'undefined' && d.Status.GuiFocus == 0) {
-    if (!edOverlay.isVisible())
-      edOverlay.showInactive();
+    if (!edOverlay.isVisible()) {
+      log.info('Showing overlay');
+      log.debug(d);
+      edOverlay.show();
+    }
   } else {
-    if (edOverlay.isVisible())
+    if (edOverlay.isVisible()) {
+      log.info('Hiding overlay');
+      log.debug(d);
       edOverlay.hide();
+    }
   }
 }, 1000);
 
 app.on('ready', createWindow);
 
 app.on('before-quit', () => {
+  log.info('Preparing to quit application');
   win.close();
   edOverlay.close();
 });
 
 app.on('window-all-closed', () => {
+  log.info('Application exited');
   if (process.platform !== 'darwin') {
     app.quit();
   }
