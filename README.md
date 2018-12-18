@@ -1,5 +1,9 @@
 # RatTracker - Electron && React [![CircleCI](https://circleci.com/gh/FuelRats/RatTracker-electron/tree/master.svg?style=svg)](https://circleci.com/gh/FuelRats/RatTracker-electron/tree/master)
 
+## Stats
+
+[![](https://img.shields.io/github/downloads/FuelRats/RatTracker-electron/total.svg)](https://github.com/FuelRats/RatTracker-electron)
+
 Updated and revised RatTracker, now in TypeScript (ReactJS, Electron)
 
 The RatTracker is an Electron-app designed to assist rats in tracking their active cases.
@@ -7,6 +11,9 @@ The RatTracker is an Electron-app designed to assist rats in tracking their acti
 Using journal parsing, it detects your interaction with the clients.
 
 ## Download
+
+[![](https://img.shields.io/github/tag-date/FuelRats/RatTracker-electron.svg)](https://github.com/FuelRats/RatTracker-electron/releases/latest)
+[![](https://img.shields.io/github/release-date/FuelRats/RatTracker-electron.svg)](https://github.com/FuelRats/RatTracker-electron/releases/latest)
 
 Click here to download the [latest release](https://github.com/FuelRats/RatTracker-electron/releases/latest)
 
