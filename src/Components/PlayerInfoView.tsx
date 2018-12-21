@@ -7,7 +7,7 @@ class PlayerInfoView extends React.Component<RatDataProps> {
 		let _flags = [];
 
 		if (flags & EDStatusFlags.Docked) _flags.push("Docked, on landing pad");
-		if (flags & EDStatusFlags.Landed) _flags.push("Landet, on surface");
+		if (flags & EDStatusFlags.Landed) _flags.push("Landed, on surface");
 		if (flags & EDStatusFlags.LandingGearDown)
 			_flags.push("Landing gear down");
 		if (flags & EDStatusFlags.ShieldsUp) _flags.push("Shields up");
