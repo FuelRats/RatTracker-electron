@@ -1,5 +1,5 @@
 import * as React from "react";
-import { withRatData, RatDataProps } from "src/Lib/Decorators";
+import { withRatData, RatDataProps } from "../Lib/Decorators";
 
 @withRatData
 class PlayerInfoView extends React.Component<RatDataProps> {
@@ -105,7 +105,12 @@ class PlayerInfoView extends React.Component<RatDataProps> {
 							<tr>
 								<td style={{ verticalAlign: "top" }}>Status</td>
 								<td align="right">
-									{this.getStatusFlags(_data.Status.Flags)}
+									{_data.Status != null &&
+									_data.Status.Flags != null
+										? this.getStatusFlags(
+												_data.Status.Flags
+										  )
+										: "Offline"}
 								</td>
 							</tr>
 						</tbody>

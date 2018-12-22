@@ -1,5 +1,5 @@
 import * as React from "react";
-import { withRatData, RatDataProps } from "src/Lib/Decorators";
+import { withRatData, RatDataProps } from "../Lib/Decorators";
 import { observable } from "mobx";
 
 @withRatData

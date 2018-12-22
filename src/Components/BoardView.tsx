@@ -1,10 +1,13 @@
 import * as React from "react";
-import { withRatData, RatDataProps } from "src/Lib/Decorators";
+import { withRatData, RatDataProps } from "../Lib/Decorators";
 import "./BoardView.css";
+import { action } from "mobx";
 
 @withRatData
 class BoardView extends React.Component<RatDataProps> {
+	@action.bound
 	selectRescue(rescueId: string, e: any) {
+		console.log(rescueId);
 		this.props.store.selectedRescue = rescueId;
 	}
 	render() {

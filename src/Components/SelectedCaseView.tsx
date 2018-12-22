@@ -1,5 +1,5 @@
 import * as React from "react";
-import { withRatData, RatDataProps } from "src/Lib/Decorators";
+import { withRatData, RatDataProps } from "../Lib/Decorators";
 import { autorun, observable } from "mobx";
 
 @withRatData
@@ -7,6 +7,7 @@ class SelectedCaseView extends React.Component<RatDataProps> {
 	constructor(props: RatDataProps) {
 		super(props);
 		autorun(() => {
+			console.log(this.props.store.selectedRescue);
 			this.fetchRescueInfo(this.props.store.selectedRescue);
 		});
 	}

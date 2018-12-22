@@ -1,89 +1,95 @@
 {
-  "name": "rattracker",
-  "version": "0.1.8-alpha",
-  "author": {
-    "name": "CMDR NoLifeKing",
-    "email": "nolifeking@fuelrats.com"
-  },
-  "os": [
-    "win32",
-    "!darwin",
-    "!linux"
-  ],
-  "cpu": [
-    "x64"
-  ],
-  "repository": {
-    "type": "github",
-    "url": "https://github.com/FuelRats/RatTracker-electron"
-  },
-  "description": "A tool to help the Rats of Fuel Rats to save clients",
-  "private": true,
-  "homepage": "./",
-  "dependencies": {
-    "electron-log": "^2.2.17",
-    "electron-updater": "^4.0.6",
-    "mobx": "^5.6.0",
-    "mobx-react": "^5.4.2",
-    "react": "^16.6.1",
-    "react-dom": "^16.6.1",
-    "react-hot-loader": "^4.3.12",
-    "react-router-dom": "^4.3.1",
-    "react-scripts-ts": "3.1.0",
-    "tail": "^2.0.2"
-  },
-  "main": "src/rattracker-electron.js",
-  "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject",
-    "electron": "electron .",
-    "dev": "concurrently --kill-others \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && cross-env ELECTRON_DISABLE_SECURITY_WARNINGS=1 ELECTRON_START_URL=http://localhost:3000 electron .\"",
-    "build_and_run": "react-scripts-ts build && electron .",
-    "prod_run": "electron .",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder",
-    "deploy": "react-scripts-ts build && electron-builder --publish always",
-    "postinstall": "electron-builder install-app-deps"
-  },
-  "build": {
-    "appId": "com.fuelrats.rattracker",
-    "productName": "Rat Tracker - The Fuel Rats Mischief",
-    "files": [
-      "src",
-      "build",
-      "node_modules"
-    ],
-    "win": {
-      "target": "nsis",
-      "publish": [
-        "github"
-      ]
-    },
-    "nsis": {
-      "allowToChangeInstallationDirectory": true,
-      "shortcutName": "RatTracker",
-      "oneClick": false,
-      "guid": "e484463e-48c6-5486-b28b-8a6da45bd9c0"
-    },
-    "publish": {
-      "provider": "github",
-      "private": false
-    }
-  },
-  "devDependencies": {
-    "@types/jest": "^23.3.9",
-    "@types/node": "^10.12.5",
-    "@types/react": "^16.7.3",
-    "@types/react-dom": "^16.0.9",
-    "@types/react-router-dom": "^4.3.1",
-    "@types/semver": "^5.5.0",
-    "concurrently": "^4.1.0",
-    "cross-env": "^5.2.0",
-    "electron": "^2.0.14",
-    "electron-builder": "^20.38.3",
-    "typescript": "^3.1.6",
-    "wait-on": "^3.2.0"
-  }
+	"name": "rattracker",
+	"version": "0.1.9-alpha",
+	"author": {
+		"name": "CMDR NoLifeKing",
+		"email": "nolifeking@fuelrats.com"
+	},
+	"os": [
+		"win32",
+		"!darwin",
+		"!linux"
+	],
+	"cpu": [
+		"x64"
+	],
+	"repository": {
+		"type": "github",
+		"url": "https://github.com/FuelRats/RatTracker-electron"
+	},
+	"description": "A tool to help the Rats of Fuel Rats to save clients",
+	"private": true,
+	"homepage": "./",
+	"dependencies": {
+		"electron-log": "^2.2.17",
+		"electron-updater": "^4.0.6",
+		"mobx": "^5.8.0",
+		"mobx-react": "^5.4.3",
+		"react": "^16.6.1",
+		"react-dom": "^16.6.1",
+		"react-scripts": "^2.1.1",
+		"react-hot-loader": "^4.3.12",
+		"react-router-dom": "^4.3.1",
+		"tail": "^2.0.2"
+	},
+	"main": "src/rattracker-electron.js",
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test --env=jsdom",
+		"eject": "react-scripts eject",
+		"electron": "electron .",
+		"dev": "concurrently --kill-others \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && cross-env ELECTRON_DISABLE_SECURITY_WARNINGS=1 ELECTRON_START_URL=http://localhost:3000 electron .\"",
+		"build_and_run": "react-scripts build && electron .",
+		"prod_run": "electron .",
+		"pack": "electron-builder --dir",
+		"dist": "electron-builder",
+		"deploy": "react-scripts build && electron-builder --publish always",
+		"postinstall": "electron-builder install-app-deps"
+	},
+	"build": {
+		"appId": "com.fuelrats.rattracker",
+		"productName": "Rat Tracker - The Fuel Rats Mischief",
+		"files": [
+			"src",
+			"build",
+			"node_modules"
+		],
+		"win": {
+			"target": "nsis",
+			"publish": [
+				"github"
+			]
+		},
+		"nsis": {
+			"allowToChangeInstallationDirectory": true,
+			"shortcutName": "RatTracker",
+			"oneClick": false,
+			"guid": "e484463e-48c6-5486-b28b-8a6da45bd9c0"
+		},
+		"publish": {
+			"provider": "github",
+			"private": false
+		}
+	},
+	"devDependencies": {
+		"@types/jest": "^23.3.9",
+		"@types/node": "^10.12.5",
+		"@types/react": "^16.7.3",
+		"@types/react-dom": "^16.0.9",
+		"@types/react-router-dom": "^4.3.1",
+		"@types/semver": "^5.5.0",
+		"concurrently": "^4.1.0",
+		"cross-env": "^5.2.0",
+		"electron": "^2.0.14",
+		"electron-builder": "^20.38.3",
+		"typescript": "^3.1.6",
+		"wait-on": "^3.2.0"
+	},
+	"browserslist": [
+		">0.2%",
+		"not dead",
+		"not ie <= 11",
+		"not op_mini all"
+	]
 }
