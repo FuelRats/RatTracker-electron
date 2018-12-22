@@ -7,7 +7,6 @@ import { action } from "mobx";
 class BoardView extends React.Component<RatDataProps> {
 	@action.bound
 	selectRescue(rescueId: string, e: any) {
-		console.log(rescueId);
 		this.props.store.selectedRescue = rescueId;
 	}
 	render() {
