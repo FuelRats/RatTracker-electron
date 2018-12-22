@@ -13,6 +13,7 @@ Using journal parsing, it detects your interaction with the clients.
 ## Download
 
 [![](https://img.shields.io/github/tag-date/FuelRats/RatTracker-electron.svg)](https://github.com/FuelRats/RatTracker-electron/releases/latest)
+
 [![](https://img.shields.io/github/release-date/FuelRats/RatTracker-electron.svg)](https://github.com/FuelRats/RatTracker-electron/releases/latest)
 
 Click here to download the [latest release](https://github.com/FuelRats/RatTracker-electron/releases/latest)
@@ -39,3 +40,8 @@ The assigned rescue is clickable and will copy the system name onto your clipboa
 Please file a bug report at [JIRA](https://jira.fuelrats.com/projects/RTE/issues/) if you can find any bugs.
 
 Please check so that there are no open issues with the same problem as you before you open a new issue.
+
+## Contributions
+
+If you want to contribute, you can read our [CONTRIBUTION.md](CONTRIBUTING.md).
+Not looking for code contributions, but bug reports and feature requests or suggestions. :)
