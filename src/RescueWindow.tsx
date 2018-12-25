@@ -120,6 +120,12 @@ class RescueWindow extends React.Component<
 		}
 	}
 
+	reloadBoard = async () => {
+		console.log("Reloading board");
+		await this.loadInitialData();
+		console.log("Reloading board done");
+	};
+
 	public async componentDidMount() {
 		if (!this.ratSocket.connected && this.props.store.authenticated) {
 			await this.ratSocket.connect(Auth.getToken() as string);
@@ -135,7 +141,10 @@ class RescueWindow extends React.Component<
 			<div className="rootElement">
 				<div className="mainContainer">
 					<div className="gridItem rescuesView">
-						<BoardView {...this.props} />
+						<BoardView
+							{...this.props}
+							onReload={this.reloadBoard}
+						/>
 					</div>
 					<div className="gridItem selectedCaseView">
 						<SelectedCaseView {...this.props} />

@@ -1,14 +1,15 @@
 import * as React from "react";
-import { withRatData, RatDataProps } from "../Lib/Decorators";
+import { withRatBoardData, BoardProps } from "../Lib/Decorators";
 import "./BoardView.css";
 import { action } from "mobx";
 
-@withRatData
-class BoardView extends React.Component<RatDataProps> {
+@withRatBoardData
+class BoardView extends React.Component<BoardProps> {
 	@action.bound
 	selectRescue(rescueId: string, e: any) {
 		this.props.store.selectedRescue = rescueId;
 	}
+
 	render() {
 		let rescueItems = [];
 		for (let rescueKey in this.props.store.rescues) {
@@ -33,7 +34,7 @@ class BoardView extends React.Component<RatDataProps> {
 					<td align={"center"}>
 						{rescue.attributes.status === "open" ? "✅" : "❌"}
 					</td>
-					<td>
+					<td colSpan={2}>
 						{rescue.relationships.rats.data &&
 							rescue.relationships.rats.data.map((rat: any) => {
 								let _rat = this.props.store.rats[rat.id];
@@ -63,6 +64,14 @@ class BoardView extends React.Component<RatDataProps> {
 						<th className="codeRed">Code Red</th>
 						<th className="active">Active</th>
 						<th>Assigned Rats</th>
+						<th>
+							<a
+								className="reloadButton"
+								onClick={this.props.onReload}
+							>
+								🔄
+							</a>
+						</th>
 					</tr>
 				</thead>
 				<tbody className="rescueRows">{rescueItems}</tbody>
