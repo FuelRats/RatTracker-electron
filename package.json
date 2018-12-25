@@ -50,6 +50,7 @@
 	"build": {
 		"appId": "com.fuelrats.rattracker",
 		"productName": "Rat Tracker - The Fuel Rats Mischief",
+		"extends": null,
 		"files": [
 			"src",
 			"build",
