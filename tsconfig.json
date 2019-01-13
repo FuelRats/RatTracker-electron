@@ -1,12 +1,13 @@
 {
 	"compilerOptions": {
+		"baseUrl": ".",
 		"outDir": "build/dist",
 		"module": "esnext",
 		"target": "es6",
 		"lib": ["es6", "dom"],
 		"sourceMap": true,
 		"allowJs": true,
-		"jsx": "preserve",
+		"jsx": "react",
 		"moduleResolution": "node",
 		"rootDir": "src",
 		"forceConsistentCasingInFileNames": true,
@@ -17,14 +18,7 @@
 		"strictNullChecks": true,
 		"suppressImplicitAnyIndexErrors": true,
 		"noUnusedLocals": true,
-		"experimentalDecorators": true,
-		"skipLibCheck": false,
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"strict": true,
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"noEmit": true
+		"experimentalDecorators": true
 	},
 	"exclude": [
 		"node_modules",
@@ -33,9 +27,6 @@
 		"acceptance-tests",
 		"webpack",
 		"jest",
-		"src/setupTests.ts",
-		"src/rattracker-electron.js",
-		"src/Lib/Journal"
-	],
-	"include": ["src"]
+		"src/setupTests.ts"
+	]
 }
