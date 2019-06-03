@@ -8,29 +8,29 @@ import { Auth } from "./Lib/Auth/Auth";
 export interface ILayoutProps {}
 
 class Layout extends React.Component<ILayoutProps, any> {
-	store = new RootStore();
+  store = new RootStore();
 
-	public render() {
-		return (
-			<Provider store={this.store}>
-				<Routes />
-			</Provider>
-		);
-	}
+  public render() {
+    return (
+      <Provider store={this.store}>
+        <Routes />
+      </Provider>
+    );
+  }
 
-	public async componentDidMount() {
-		if (Auth.checkIfAuthenticated() && (await Auth.validateToken())) {
-			this.store.userProfile = JSON.parse(
-				localStorage.getItem("rt-userProfile") || "{}"
-			);
-			this.store.authenticated = true;
-		} else {
-			localStorage.removeItem("rt-authtoken");
-			localStorage.removeItem("rt-userProfile");
-			this.store.authenticated = false;
-			Auth.sendToAuthenticate();
-		}
-	}
+  public async componentDidMount() {
+    if (Auth.checkIfAuthenticated() && (await Auth.validateToken())) {
+      this.store.userProfile = JSON.parse(
+        localStorage.getItem("rt-userProfile") || "{}"
+      );
+      this.store.authenticated = true;
+    } else {
+      localStorage.removeItem("rt-authtoken");
+      localStorage.removeItem("rt-userProfile");
+      this.store.authenticated = false;
+      Auth.sendToAuthenticate();
+    }
+  }
 }
 
 export default hot(module)(Layout);

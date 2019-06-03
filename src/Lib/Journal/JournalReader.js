@@ -6,11 +6,11 @@ const edData = require("./EDData");
  */
 
 module.exports = {
-	FileReader: fileReader,
-	/**
-	 * @returns EDData
-	 */
-	Data() {
-		return this.FileReader.getData();
-	}
+  FileReader: fileReader,
+  /**
+   * @returns EDData
+   */
+  Data() {
+    return this.FileReader.getData();
+  }
 };

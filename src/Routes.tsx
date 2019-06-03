@@ -6,14 +6,14 @@ import NotDrilled from "./NotDrilled";
 import Overlay from "./Overlay";
 
 const Routes = () => (
-	<Router>
-		<Switch>
-			<Route path="/" exact={true} component={App} />
-			<Route path="/NotDrilled" exact={true} component={NotDrilled} />
-			<Route path="/Rescues" exact={true} component={RescueWindow} />
-			<Route path="/Overlay" exact={true} component={Overlay} />
-		</Switch>
-	</Router>
+  <Router>
+    <Switch>
+      <Route path="/" exact={true} component={App} />
+      <Route path="/NotDrilled" exact={true} component={NotDrilled} />
+      <Route path="/Rescues" exact={true} component={RescueWindow} />
+      <Route path="/Overlay" exact={true} component={Overlay} />
+    </Switch>
+  </Router>
 );
 
 export default Routes;

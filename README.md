@@ -22,10 +22,10 @@ And then click on the `rattracker-setup-<version>.exe` to start the download
 
 ## Running it
 
--   First off, install the RatTracker by the instructions above
--   Open the newly created shortcut "RatTracker"
--   Authenticate with your Rat Account
--   The Tracker should open and list current rescues and your own status
+- First off, install the RatTracker by the instructions above
+- Open the newly created shortcut "RatTracker"
+- Authenticate with your Rat Account
+- The Tracker should open and list current rescues and your own status
 
 ### Overlay
 
