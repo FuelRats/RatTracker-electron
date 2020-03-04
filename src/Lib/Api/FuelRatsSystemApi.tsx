@@ -1,13 +1,13 @@
 import { RatConfig } from "../../Config";
 
 export class FuelRatsApi {
-  constructor() {}
+  constructor() { }
 
   public async fetchSystem(systemName: string) {
     const response = await fetch(
       `${
-        RatConfig.SystemApiUri
-      }/api/systems?filter[name.eq]=${systemName.toUpperCase()}`,
+      RatConfig.SystemApiUri
+      }/api/systems?filter[name:eq]=${systemName}`,
       {
         headers: {
           "Content-Type": "application/json; charset=utf-8",
