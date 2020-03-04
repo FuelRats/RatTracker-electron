@@ -21,12 +21,12 @@ class BoardView extends React.Component<BoardProps> {
           onClick={e => this.selectRescue(rescue.id, e)}
         >
           <td align={"center"}>#{rescue.attributes.data.boardIndex}</td>
-          <td align={"center"}>{rescue.attributes.platform.toUpperCase()}</td>
+          <td align={"center"}>{rescue.attributes.platform != null ? rescue.attributes.platform.toUpperCase() : 'unknown'}</td>
           <td>{rescue.attributes.client}</td>
           <td>{rescue.attributes.system}</td>
-          <td align={"center"}>{rescue.attributes.codeRed ? "✅" : "❌"}</td>
+          <td align={"center"}>{rescue.attributes.codeRed != null && rescue.attributes.codeRed ? "✅" : "❌"}</td>
           <td align={"center"}>
-            {rescue.attributes.status === "open" ? "✅" : "❌"}
+            {rescue.attributes.status == null || rescue.attributes.status === "open" ? "✅" : "❌"}
           </td>
           <td colSpan={2}>
             {rescue.relationships.rats.data &&
