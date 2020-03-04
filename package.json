@@ -1,6 +1,6 @@
 {
   "name": "rattracker",
-  "version": "0.1.10-alpha",
+  "version": "0.1.10",
   "author": {
     "name": "CMDR NoLifeKing",
     "email": "nolifeking@fuelrats.com"
@@ -45,7 +45,8 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "deploy": "react-scripts-ts build && electron-builder --publish always",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "bump-version": "yarn && yarn standard-version"
   },
   "build": {
     "appId": "com.fuelrats.rattracker",
@@ -84,6 +85,7 @@
     "cross-env": "^5.2.0",
     "electron": "^2.0.14",
     "electron-builder": "^20.38.3",
+    "standard-version": "^7.1.0",
     "typescript": "^3.1.6",
     "wait-on": "^3.2.0"
   }
