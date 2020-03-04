@@ -18,8 +18,8 @@ const { getGlobal } = electron.remote;
 
 @withRatData
 class RescueWindow extends React.Component<
-  RatDataProps,
-  { CanUseRatTracker: boolean }
+RatDataProps,
+{ CanUseRatTracker: boolean }
 > {
   // @ts-ignore
   private ratSocket: RatSocket;
@@ -90,15 +90,6 @@ class RescueWindow extends React.Component<
 
     if (!!data.data) {
       let newRescues = Array.isArray(data.data) ? data.data : [data.data];
-
-      if (!!data.meta && data.meta.event === "rescueCreated") {
-        if (data.data.attributes.codeRed) {
-          var synth = window.speechSynthesis;
-          synth.speak(
-            new SpeechSynthesisUtterance("Warning, Incoming Code Red!")
-          );
-        }
-      }
 
       rescues = newRescues.filter((inc: any) => {
         return inc.attributes.status !== "closed";
