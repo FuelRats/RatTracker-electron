@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.12](https://github.com/FuelRats/RatTracker-electron/compare/v0.1.11...v0.1.12) (2020-05-08)
+
+
+### Bug Fixes
+
+* **overlay:** Removing dynamic visibility of overlay based on gui focus. ([4821346](https://github.com/FuelRats/RatTracker-electron/commit/4821346ac9cbb6f13d270dd4ddabcc3dc659b7b4))
+
 ### [0.1.11](https://github.com/FuelRats/RatTracker-electron/compare/v0.1.9-alpha...v0.1.11) (2020-03-04)
 
 
