@@ -179,27 +179,27 @@ function createWindow() {
   });
 }
 
-setInterval(() => {
-  var d = journalReader.Data();
-  if (edOverlay == null) return;
-  if (
-    d.Online &&
-    typeof d.Status.GuiFocus != "undefined" &&
-    d.Status.GuiFocus == 0
-  ) {
-    if (!edOverlay.isVisible()) {
-      log.info("Showing overlay");
-      log.debug(d);
-      edOverlay.show();
-    }
-  } else {
-    if (edOverlay.isVisible()) {
-      log.info("Hiding overlay");
-      log.debug(d);
-      edOverlay.hide();
-    }
-  }
-}, 1000);
+// setInterval(() => {
+//   var d = journalReader.Data();
+//   if (edOverlay == null) return;
+//   if (
+//     d.Online &&
+//     typeof d.Status.GuiFocus != "undefined" &&
+//     d.Status.GuiFocus == 0
+//   ) {
+//     if (!edOverlay.isVisible()) {
+//       log.info("Showing overlay");
+//       log.debug(d);
+//       edOverlay.show();
+//     }
+//   } else {
+//     if (edOverlay.isVisible()) {
+//       log.info("Hiding overlay");
+//       log.debug(d);
+//       edOverlay.hide();
+//     }
+//   }
+// }, 1000);
 
 app.on("ready", createWindow);
 

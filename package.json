@@ -39,7 +39,7 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "electron": "electron .",
-    "dev": "concurrently --kill-others \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && cross-env ELECTRON_DISABLE_SECURITY_WARNINGS=1 ELECTRON_START_URL=http://localhost:3000 electron .\"",
+    "dev": "yarn && concurrently --kill-others \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && cross-env ELECTRON_DISABLE_SECURITY_WARNINGS=1 ELECTRON_START_URL=http://localhost:3000 electron .\"",
     "build_and_run": "react-scripts-ts build && electron .",
     "prod_run": "electron .",
     "pack": "electron-builder --dir",
