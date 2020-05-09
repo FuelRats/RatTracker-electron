@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.14](https://github.com/FuelRats/RatTracker-electron/compare/v0.1.13...v0.1.14) (2020-05-09)
+
+
+### Bug Fixes
+
+* Fix for bump-version-script ([5111940](https://github.com/FuelRats/RatTracker-electron/commit/5111940dfed0915e3bd8ff53ba7eba344b75924d))
+
 ### [0.1.13](https://github.com/FuelRats/RatTracker-electron/compare/v0.1.12...v0.1.13) (2020-05-09)
 
 
