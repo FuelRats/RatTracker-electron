@@ -46,7 +46,7 @@
     "dist": "electron-builder",
     "deploy": "react-scripts-ts build && electron-builder --publish always -c.releaseInfo.releaseNotesFile=\"CHANGELOG.md\"",
     "postinstall": "electron-builder install-app-deps",
-    "bump-version": "yarn && yarn standard-version && git add . && git commit -m \"chore: Version bump\" && git push --follow-tags && yarn deploy"
+    "bump-version": "yarn && yarn standard-version && git add . && git push --follow-tags && yarn deploy"
   },
   "build": {
     "appId": "com.fuelrats.rattracker",
