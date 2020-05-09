@@ -2,6 +2,7 @@ import * as React from "react";
 import { withRatBoardData, BoardProps } from "../Lib/Decorators";
 import "./BoardView.css";
 import { action } from "mobx";
+import { copySystemName } from "../Lib/CopyString";
 
 @withRatBoardData
 class BoardView extends React.Component<BoardProps> {
@@ -23,7 +24,7 @@ class BoardView extends React.Component<BoardProps> {
           <td align={"center"}>#{rescue.attributes.data.boardIndex}</td>
           <td align={"center"}>{rescue.attributes.platform != null ? rescue.attributes.platform.toUpperCase() : 'unknown'}</td>
           <td>{rescue.attributes.client}</td>
-          <td>{rescue.attributes.system}</td>
+          <td onClick={e => copySystemName(rescue.attributes.system, e)}>{rescue.attributes.system}</td>
           <td align={"center"}>{rescue.attributes.codeRed != null && rescue.attributes.codeRed ? "✅" : "❌"}</td>
           <td align={"center"}>
             {rescue.attributes.status == null || rescue.attributes.status === "open" ? "✅" : "❌"}

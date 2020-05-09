@@ -1,6 +1,7 @@
 import * as React from "react";
 import { withRatData, RatDataProps } from "../Lib/Decorators";
 import { autorun, observable } from "mobx";
+import { copySystemName } from "../Lib/CopyString";
 
 @withRatData
 class SelectedCaseView extends React.Component<RatDataProps> {
@@ -42,7 +43,7 @@ class SelectedCaseView extends React.Component<RatDataProps> {
               </tr>
               <tr>
                 <td>System:</td>
-                <td>{this.selectedRescue.attributes.system}</td>
+                <td onClick={e => copySystemName(this.selectedRescue.attributes.system, e)}>{this.selectedRescue.attributes.system}</td>
               </tr>
               <tr>
                 <td>Status:</td>
@@ -87,8 +88,8 @@ class SelectedCaseView extends React.Component<RatDataProps> {
             </tbody>
           </table>
         ) : (
-          <i>No rescue selected</i>
-        )}
+            <i>No rescue selected</i>
+          )}
       </div>
     );
   }

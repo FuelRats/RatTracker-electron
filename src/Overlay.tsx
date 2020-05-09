@@ -5,6 +5,7 @@ import { withRatData, RatDataProps } from "./Lib/Decorators";
 import { RootStore } from "./Lib/Stores";
 import { RatSocket } from "./Lib/Api/RatSocket";
 import { Auth } from "./Lib/Auth/Auth";
+import { copySystemName } from "./Lib/CopyString";
 
 @withRatData
 class Overlay extends React.Component<RatDataProps> {
@@ -116,23 +117,23 @@ class Overlay extends React.Component<RatDataProps> {
     }
   }
 
-  public copySystemName(systemName: string, e: any) {
-    var textArea = document.createElement("textarea");
-    textArea.value = systemName;
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
+  // public copySystemName(systemName: string, e: any) {
+  //   var textArea = document.createElement("textarea");
+  //   textArea.value = systemName;
+  //   document.body.appendChild(textArea);
+  //   textArea.focus();
+  //   textArea.select();
 
-    try {
-      var successful = document.execCommand("copy");
-      var msg = successful ? "successful" : "unsuccessful";
-      console.log("Fallback: Copying text command was " + msg);
-    } catch (err) {
-      console.error("Fallback: Oops, unable to copy", err);
-    }
+  //   try {
+  //     var successful = document.execCommand("copy");
+  //     var msg = successful ? "successful" : "unsuccessful";
+  //     console.log("Fallback: Copying text command was " + msg);
+  //   } catch (err) {
+  //     console.error("Fallback: Oops, unable to copy", err);
+  //   }
 
-    document.body.removeChild(textArea);
-  }
+  //   document.body.removeChild(textArea);
+  // }
 
   public render() {
     let currentRatName = "";
@@ -166,7 +167,7 @@ class Overlay extends React.Component<RatDataProps> {
           <tr
             key={rescue.id}
             className="rescueRow"
-            onClick={e => this.copySystemName(rescue.attributes.system, e)}
+            onClick={e => copySystemName(rescue.attributes.system, e)}
           >
             <td align={"center"}>#{rescue.attributes.data.boardIndex}</td>
             <td>{rescue.attributes.client}</td>
