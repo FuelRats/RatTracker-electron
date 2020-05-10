@@ -26,6 +26,8 @@ export class RatSocket extends RatEmitter {
     this.welcomeTimeout = null;
     this.openRequests = {};
     this.connected = false;
+
+    window.setInterval(this.checkConnectionAndReconnectIfNeeded, 30000);
   }
 
   async connect(token: string) {
@@ -48,11 +50,11 @@ export class RatSocket extends RatEmitter {
       }, 60000);
 
       let onConnect = (data: Object) => {
-          window.clearTimeout(this.welcomeTimeout!);
-          this.off("ratsocket:error", onError);
-          this._emitEvent("ratsocket:connect", data);
-          resolve(data);
-        },
+        window.clearTimeout(this.welcomeTimeout!);
+        this.off("ratsocket:error", onError);
+        this._emitEvent("ratsocket:connect", data);
+        resolve(data);
+      },
         onError = (data: Object) => {
           window.clearTimeout(this.welcomeTimeout!);
           this.off("connection", onConnect);
@@ -95,10 +97,11 @@ export class RatSocket extends RatEmitter {
     this.connected = true;
   }
 
-  connectionClosed(data: Object) {
+  async connectionClosed(data: Object) {
     window.console.log("RatTracker - Connection closed, reopening");
     window.console.debug(data);
     this.connected = false;
+    await this.checkConnectionAndReconnectIfNeeded();
   }
 
   errorReceived(data: Object) {
@@ -122,6 +125,14 @@ export class RatSocket extends RatEmitter {
     } else {
       window.console.warn(_data);
     }
+  }
+
+  async checkConnectionAndReconnectIfNeeded() {
+    if (this.socket && this.socket!.readyState !== 1 && this.socket!.readyState > 1) {
+      await this.connect(this.currentToken!);
+    }
+
+    return this;
   }
 
   async send(payload: Object) {
