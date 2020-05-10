@@ -7,8 +7,8 @@
   },
   "os": [
     "win32",
-    "!darwin",
-    "!linux"
+    "darwin",
+    "linux"
   ],
   "cpu": [
     "x64"
