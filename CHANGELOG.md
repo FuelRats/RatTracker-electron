@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.15](https://github.com/FuelRats/RatTracker-electron/compare/v0.1.14...v0.1.15) (2020-05-10)
+
+
+### Features
+
+* **RatSocket:** Added some more reconnect safe guards. ([70e28db](https://github.com/FuelRats/RatTracker-electron/commit/70e28db451e1a2be3da17ee40ed69208558e93e0))
+
 ### [0.1.14](https://github.com/FuelRats/RatTracker-electron/compare/v0.1.13...v0.1.14) (2020-05-09)
 
 
