@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download source
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+          submodules: true
+          lfs: true
+      - name: Get Node 10.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+      - name: Build source files
+        shell: bash
+        run: |
+          yarn --frozen-lockfile
+          yarn build
