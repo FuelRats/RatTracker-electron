@@ -1,4 +1,4 @@
-# RatTracker - Electron && React [![CircleCI](https://circleci.com/gh/FuelRats/RatTracker-electron/tree/master.svg?style=svg)](https://circleci.com/gh/FuelRats/RatTracker-electron/tree/master)
+# RatTracker - Electron && React ![CI](https://github.com/FuelRats/RatTracker-electron/workflows/CI/badge.svg)
 
 ## Stats
 
