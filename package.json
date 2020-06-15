@@ -101,6 +101,8 @@
     "mem": "^6.1.0",
     "serialize-javascript": "^3.0.0",
     "webpack-dev-server": "^2.11.4",
-    "yargs-parser": "^18.1.3"
+    "yargs-parser": "^18.1.3",
+    "websocket-extensions": "^0.1.4",
+    "http-proxy": "^1.18.1"
   }
 }
