@@ -16,39 +16,42 @@ class Overlay extends React.Component<RatDataProps> {
     super(props);
 
     this.state = {
-      CanUseRatTracker: true
+      CanUseRatTracker: true,
     };
 
     this.ratSocket = new RatSocket();
 
     this.ratSocket
       .on("ratsocket:connect", async () => await this.loadInitialData())
-      .on("rescueCreated", (data: any) => this.updateRescues(data))
-      .on("rescueUpdated", (data: any) => this.updateRescues(data));
+      .on("fuelrats.rescuecreate", (data: any) => this.updateRescues(data))
+      .on("fuelrats.rescueupdate", (data: any) => this.updateRescues(data))
+      .on("fuelrats.rescuedelete", (data: any) => this.updateRescues(data))
+      .on("rattracker.friendrequest", (data: any) => this.updateRescues(data))
+      .on("rattracker.wingrequest", (data: any) => this.updateRescues(data))
+      .on("rattracker.systemreached", (data: any) => this.updateRescues(data));
   }
 
   async loadInitialData() {
-    let _profile: any = await this.ratSocket.request({
-      action: ["users", "profile"],
-      data: {}
-    });
+    let _profile: any = (
+      await this.ratSocket.request(["profiles", "read"], {})
+    )[2];
 
     this.props.store.userProfile = _profile;
 
-    const userGroups = _profile.data.relationships.groups.data;
-
-    const isDrilled = userGroups.findIndex((r: any) => r.id == "rat") > -1;
+    const isDrilled = (_profile.data.meta.permissions as Array<
+      string
+    >).includes("dispatch.read");
 
     if (isDrilled) {
-      let _rescues: any = await this.ratSocket.request({
-        action: ["rescues", "read"],
-        data: {},
-        $not: { status: "closed" }
-      });
+      let _rescues: any = (
+        await this.ratSocket.request(["rescues", "search"], {
+          filter: { status: { ne: "closed" } },
+        })
+      )[2];
       this.updateRescues(_rescues);
     } else {
       this.setState({
-        CanUseRatTracker: false
+        CanUseRatTracker: false,
       });
     }
 
@@ -113,7 +116,7 @@ class Overlay extends React.Component<RatDataProps> {
   public async componentDidMount() {
     if (!this.ratSocket.connected && this.props.store.authenticated) {
       await this.ratSocket.connect(Auth.getToken() as string);
-      await this.ratSocket.subscribe("0xDEADBEEF");
+      await this.ratSocket.subscribe();
     }
   }
 
@@ -167,7 +170,7 @@ class Overlay extends React.Component<RatDataProps> {
           <tr
             key={rescue.id}
             className="rescueRow"
-            onClick={e => copySystemName(rescue.attributes.system, e)}
+            onClick={(e) => copySystemName(rescue.attributes.system, e)}
           >
             <td align={"center"}>#{rescue.attributes.data.boardIndex}</td>
             <td>{rescue.attributes.client}</td>

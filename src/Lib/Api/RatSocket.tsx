@@ -4,25 +4,26 @@ import { RatConfig } from "../../Config";
 export class RatSocket extends RatEmitter {
   private socket: WebSocket | null;
   private currentToken: string | null;
-  private clientId: string | null;
   private welcomeTimeout: number | null;
   private openRequests: any;
   public connected: boolean;
   constructor() {
     super(true, [
-      "rescueCreated",
-      "rescueUpdated",
-      "rescueDeleted",
+      "fuelrats.rescuecreate",
+      "fuelrats.rescueupdate",
+      "fuelrats.rescuedelete",
+      "rattracker.friendrequest",
+      "rattracker.wingrequest",
+      "rattracker.systemreached",
       "connection",
       "ratsocket:connect",
       "ratsocket:disconnect",
       "ratsocket:error",
-      "ratsocket:reconnect"
+      "ratsocket:reconnect",
     ]);
 
     this.socket = null;
     this.currentToken = null;
-    this.clientId = RatConfig.GetRequestId("rtClient");
     this.welcomeTimeout = null;
     this.openRequests = {};
     this.connected = false;
@@ -42,19 +43,19 @@ export class RatSocket extends RatEmitter {
               code: 408,
               detail: "No response from server",
               status: "Request Timeout",
-              title: "Request Timeout"
-            }
+              title: "Request Timeout",
+            },
           ],
-          meta: {}
+          meta: {},
         });
       }, 60000);
 
       let onConnect = (data: Object) => {
-        window.clearTimeout(this.welcomeTimeout!);
-        this.off("ratsocket:error", onError);
-        this._emitEvent("ratsocket:connect", data);
-        resolve(data);
-      },
+          window.clearTimeout(this.welcomeTimeout!);
+          this.off("ratsocket:error", onError);
+          this._emitEvent("ratsocket:connect", data);
+          resolve(data);
+        },
         onError = (data: Object) => {
           window.clearTimeout(this.welcomeTimeout!);
           this.off("connection", onConnect);
@@ -64,29 +65,30 @@ export class RatSocket extends RatEmitter {
                 code: 500,
                 detail: data,
                 status: "Error.",
-                title: "Error."
-              }
+                title: "Error.",
+              },
             ],
-            meta: {}
+            meta: {},
           });
         };
 
       this.once("connection", onConnect)!.once("ratsocket:error", onError);
 
       this.socket = new WebSocket(
-        `${RatConfig.WssUri}?bearer=${this.currentToken}`
+        `${RatConfig.WssUri}?bearer=${this.currentToken}`,
+        "FR-JSONAPI-WS"
       );
       this.socket.onopen = () => {
         this.connectionOpened();
       };
-      this.socket.onclose = data => {
+      this.socket.onclose = (data) => {
         this.connectionClosed(data);
       };
-      this.socket.onerror = data => {
+      this.socket.onerror = (data) => {
         this.errorReceived(data);
         reject(data);
       };
-      this.socket.onmessage = data => {
+      this.socket.onmessage = (data) => {
         this.messageReceived(data);
       };
     });
@@ -109,26 +111,31 @@ export class RatSocket extends RatEmitter {
   }
 
   messageReceived(data: any) {
-    window.console.debug("RatTracker incoming data: " + data.data);
+    window.console.debug("RatTracker incoming data: ", data.data);
 
     let _data = JSON.parse(data.data);
 
-    if (
-      _data.meta.reqId &&
-      this.openRequests.hasOwnProperty(_data.meta.reqId)
-    ) {
-      this.openRequests[_data.meta.reqId](_data);
-      delete this.openRequests[_data.meta.reqId];
-    } else if (_data.meta.event) {
-      console.log(_data.meta.event);
-      this._emitEvent(_data.meta.event, _data);
+    console.log(data);
+    console.log(_data);
+
+    if (_data[0] && this.openRequests.hasOwnProperty(_data[0])) {
+      this.openRequests[_data[0]](_data);
+      delete this.openRequests[_data[0]];
+    } else if (_data[0]) {
+      console.log(_data[0]);
+      this._emitEvent(_data[0], _data);
     } else {
       window.console.warn(_data);
     }
   }
 
   async checkConnectionAndReconnectIfNeeded() {
-    if (this.socket && this.socket!.readyState !== 1 && this.socket!.readyState > 1) {
+    window.console.debug(this.socket);
+    if (
+      this.socket &&
+      this.socket!.readyState !== 1 &&
+      this.socket!.readyState > 1
+    ) {
       await this.connect(this.currentToken!);
     }
 
@@ -136,6 +143,7 @@ export class RatSocket extends RatEmitter {
   }
 
   async send(payload: Object) {
+    console.log("RatSocket::Send", payload);
     if (this.socket!.readyState !== 1) {
       if (this.socket!.readyState > 1) {
         await this.connect(this.currentToken!);
@@ -150,31 +158,17 @@ export class RatSocket extends RatEmitter {
     return this;
   }
 
-  request(msg: any) {
-    if (typeof msg !== "object") {
-      throw new TypeError("I want an object");
-    }
-
-    if (!Array.isArray(msg.action) || msg.action.length !== 2) {
+  request(
+    endpoint: Array<string>,
+    query?: any,
+    body?: any
+  ): Promise<Array<any>> {
+    if (!Array.isArray(endpoint) || endpoint.length < 1) {
       throw new RangeError("You must supply an array with two items.");
     }
 
-    if (!msg.meta) {
-      msg.meta = {};
-    }
-
-    if (!msg.meta.reqId) {
-      msg.meta.reqId = RatConfig.GetRequestId("req");
-    }
-
-    msg.meta.clientId = this.clientId;
-
-    if (!msg.data) {
-      msg.data = {};
-    }
-
     return new Promise((resolve, reject) => {
-      let requestId = msg.meta.reqId;
+      let reqId = RatConfig.GetRequestId("req");
       let cmd_timeout = window.setTimeout(() => {
         reject({
           errors: [
@@ -182,14 +176,13 @@ export class RatSocket extends RatEmitter {
               code: 408,
               detail: "Server produced no response.",
               status: "Request Timeout",
-              title: "Request Timeout"
-            }
+              title: "Request Timeout",
+            },
           ],
-          meta: msg.meta
         });
       }, 15000);
 
-      this.openRequests[requestId] = (response: any) => {
+      this.openRequests[reqId] = (response: any) => {
         window.clearTimeout(cmd_timeout);
         if (response.errors) {
           reject(response);
@@ -197,12 +190,34 @@ export class RatSocket extends RatEmitter {
         resolve(response);
       };
 
-      this.send(msg);
+      let requestObject = [reqId, endpoint];
+
+      if (query) {
+        requestObject.push(query);
+      }
+
+      if (body) {
+        requestObject.push(body);
+      }
+
+      this.send(requestObject);
     });
   }
 
-  subscribe(channel: string) {
-    let msg = { action: ["stream", "subscribe"], id: channel };
-    return this.request(msg);
+  subscribe() {
+    return this.request(
+      ["events", "subscribe"],
+      {
+        events: [
+          "fuelrats.rescuecreate",
+          "fuelrats.rescueupdate",
+          "fuelrats.rescuedelete",
+          "rattracker.friendrequest",
+          "rattracker.wingrequest",
+          "rattracker.systemreached",
+        ],
+      },
+      null
+    );
   }
 }

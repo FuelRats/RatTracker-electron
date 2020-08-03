@@ -34,7 +34,7 @@ export class Auth {
       RatConfig.ClientId
     }&scope=${encodeURI(RatConfig.Scope)}&state=${encodeURI(
       RatConfig.RandomState()
-    )}&response_type=token`;
+    )}&response_type=token&redirect_uri=http://rattracker/auth`;
   }
 }
 

@@ -19,15 +19,28 @@ class BoardView extends React.Component<BoardProps> {
         <tr
           key={rescue.id}
           className="rescueRow"
-          onClick={e => this.selectRescue(rescue.id, e)}
+          onClick={(e) => this.selectRescue(rescue.id, e)}
         >
-          <td align={"center"}>#{rescue.attributes.data.boardIndex}</td>
-          <td align={"center"}>{rescue.attributes.platform != null ? rescue.attributes.platform.toUpperCase() : 'unknown'}</td>
-          <td>{rescue.attributes.client}</td>
-          <td onClick={e => copySystemName(rescue.attributes.system, e)}>{rescue.attributes.system}</td>
-          <td align={"center"}>{rescue.attributes.codeRed != null && rescue.attributes.codeRed ? "✅" : "❌"}</td>
+          <td align={"center"}>#{rescue.attributes.data.commandIdentifier}</td>
           <td align={"center"}>
-            {rescue.attributes.status == null || rescue.attributes.status === "open" ? "✅" : "❌"}
+            {rescue.attributes.platform != null
+              ? rescue.attributes.platform.toUpperCase()
+              : "unknown"}
+          </td>
+          <td>{rescue.attributes.client}</td>
+          <td onClick={(e) => copySystemName(rescue.attributes.system, e)}>
+            {rescue.attributes.system}
+          </td>
+          <td align={"center"}>
+            {rescue.attributes.codeRed != null && rescue.attributes.codeRed
+              ? "✅"
+              : "❌"}
+          </td>
+          <td align={"center"}>
+            {rescue.attributes.status == null ||
+            rescue.attributes.status === "open"
+              ? "✅"
+              : "❌"}
           </td>
           <td colSpan={2}>
             {rescue.relationships.rats.data &&
