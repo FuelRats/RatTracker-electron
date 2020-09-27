@@ -1,10 +1,10 @@
 export const RatConfig = {
-  ApiUri: "https://api.fuelrats.dev",
+  ApiUri: "https://api.fuelrats.com",
   SystemApiUri: "https://system.api.fuelrats.com/",
   ClientId: "0f107a5f-e0d9-4fe8-a9ae-66386cbfc6cd",
   Scope: "users.read.me rescues.read",
-  WebUri: "https://dev.fuelrats.com",
-  WssUri: "wss://api.fuelrats.dev",
+  WebUri: "https://www.fuelrats.com",
+  WssUri: "wss://api.fuelrats.com",
   RandomState(): string {
     return this.rand(20, "-rattracker");
   },

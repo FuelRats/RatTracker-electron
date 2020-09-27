@@ -40,12 +40,30 @@ class RescueWindow extends React.Component<
 
     this.ratSocket
       .on("ratsocket:connect", async () => await this.loadInitialData())
-      .on("fuelrats.rescuecreate", (data: any) => this.updateRescues(data))
-      .on("fuelrats.rescueupdate", (data: any) => this.updateRescues(data))
-      .on("fuelrats.rescuedelete", (data: any) => this.updateRescues(data))
-      .on("rattracker.friendrequest", (data: any) => this.updateRescues(data))
-      .on("rattracker.wingrequest", (data: any) => this.updateRescues(data))
-      .on("rattracker.systemreached", (data: any) => this.updateRescues(data));
+      .on("fuelrats.rescuecreate", (data: any) => {
+        console.log("create", data);
+        this.updateRescues(data);
+      })
+      .on("fuelrats.rescueupdate", (data: any) => {
+        console.log("update", data);
+        this.updateRescues(data);
+      })
+      .on("fuelrats.rescuedelete", (data: any) => {
+        console.log("delete", data);
+        this.updateRescues(data);
+      })
+      .on("rattracker.friendrequest", (data: any) => {
+        console.log("friend", data);
+        this.updateRescues(data);
+      })
+      .on("rattracker.wingrequest", (data: any) => {
+        console.log("wing", data);
+        this.updateRescues(data);
+      })
+      .on("rattracker.systemreached", (data: any) => {
+        console.log("system", data);
+        this.updateRescues(data);
+      });
   }
 
   async loadInitialData() {
@@ -78,6 +96,13 @@ class RescueWindow extends React.Component<
   }
 
   updateRescues(data: any) {
+    if (
+      Array.isArray(data) &&
+      (data[0].startsWith("fuelrats.") || data[0].startsWith("rattracker."))
+    ) {
+      data = data[3];
+    }
+
     let rats: any = {};
     if (!!data.included) {
       rats = data.included.filter((inc: any) => {

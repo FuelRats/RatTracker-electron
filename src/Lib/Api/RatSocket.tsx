@@ -28,7 +28,7 @@ export class RatSocket extends RatEmitter {
     this.openRequests = {};
     this.connected = false;
 
-    window.setInterval(this.checkConnectionAndReconnectIfNeeded, 30000);
+    window.setInterval(() => this.checkConnectionAndReconnectIfNeeded(), 30000);
   }
 
   async connect(token: string) {
@@ -115,14 +115,12 @@ export class RatSocket extends RatEmitter {
 
     let _data = JSON.parse(data.data);
 
-    console.log(data);
-    console.log(_data);
-
     if (_data[0] && this.openRequests.hasOwnProperty(_data[0])) {
       this.openRequests[_data[0]](_data);
       delete this.openRequests[_data[0]];
     } else if (_data[0]) {
-      console.log(_data[0]);
+      console.log("Possible event", _data[0]);
+      console.log("All data", _data);
       this._emitEvent(_data[0], _data);
     } else {
       window.console.warn(_data);
@@ -130,7 +128,6 @@ export class RatSocket extends RatEmitter {
   }
 
   async checkConnectionAndReconnectIfNeeded() {
-    window.console.debug(this.socket);
     if (
       this.socket &&
       this.socket!.readyState !== 1 &&

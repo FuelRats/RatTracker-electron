@@ -21,7 +21,7 @@ class BoardView extends React.Component<BoardProps> {
           className="rescueRow"
           onClick={(e) => this.selectRescue(rescue.id, e)}
         >
-          <td align={"center"}>#{rescue.attributes.data.commandIdentifier}</td>
+          <td align={"center"}>#{rescue.attributes.commandIdentifier}</td>
           <td align={"center"}>
             {rescue.attributes.platform != null
               ? rescue.attributes.platform.toUpperCase()

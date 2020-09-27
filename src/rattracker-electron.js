@@ -119,7 +119,7 @@ function createWindow() {
     });*/
 
   win.webContents.on("will-navigate", function (event, newUrl) {
-    if (newUrl.indexOf("https://fuelrats.com/authorize") >= 0 || newUrl.indexOf("https://dev.fuelrats.com/authorize") >= 0) {
+    if (newUrl.indexOf("https://www.fuelrats.com/authorize") >= 0 || newUrl.indexOf("https://fuelrats.com/authorize") >= 0 || newUrl.indexOf("https://dev.fuelrats.com/authorize") >= 0) {
       ratAuth.req = qs.parse(newUrl.split("?")[1]);
     }
 
@@ -129,6 +129,8 @@ function createWindow() {
       ratAuth.res = qs.parse(newUrl.split("?")[1]);
 
       var requestState = null;
+
+      console.log(ratAuth);
 
       if("state" in ratAuth.req) {
         requestState = ratAuth.req.state;
