@@ -11,11 +11,7 @@ const startupDate = new Date()
   .replace(/\./g, "-");
 
 log.transports.file.level = "debug";
-let logPath = log.transports.file
-  .findLogPath()
-  .replace("log.log", `log-${startupDate}.log`);
-console.log(logPath);
-log.transports.file.file = logPath;
+log.transports.file.fileName = `log-${startupDate}.log`;
 log.transports.console.level = "debug";
 
 log.info("Application started");
@@ -35,6 +31,7 @@ const url = require("url");
 const qs = require("querystring");
 
 const journalReader = require("./Lib/Journal/JournalReader");
+const { request } = require("http");
 
 const files = journalReader.FileReader.loadLogFiles();
 journalReader.FileReader.monitorChanges(files);
@@ -97,13 +94,13 @@ function createWindow() {
 
   if (!!process.env.ELECTRON_START_URL) {
     win.openDevTools({
-      //  mode: 'detach'
+        mode: 'detach'
     });
-    edOverlay.openDevTools({
+    /*edOverlay.openDevTools({
       mode: "detach"
-    });
+    });*/
   }
-  /*
+  /* Disabled for now, since it triggers strange things
     let reloadOnce = false;
 
     edOverlay.webContents.on('did-finish-load', function () {
@@ -122,14 +119,23 @@ function createWindow() {
     });*/
 
   win.webContents.on("will-navigate", function (event, newUrl) {
-    if (newUrl.indexOf("https://fuelrats.com/authorize") >= 0) {
+    if (newUrl.indexOf("https://www.fuelrats.com/authorize") >= 0 || newUrl.indexOf("https://fuelrats.com/authorize") >= 0 || newUrl.indexOf("https://dev.fuelrats.com/authorize") >= 0) {
       ratAuth.req = qs.parse(newUrl.split("?")[1]);
     }
 
-    if (newUrl.indexOf("http://rattracker/auth") >= 0) {
+    if (newUrl.indexOf("http://rattracker/auth?") >= 0) {
       event.preventDefault();
       win.webContents.stop();
-      ratAuth.res = qs.parse(newUrl.split("#")[1]);
+      ratAuth.res = qs.parse(newUrl.split("?")[1]);
+
+      var requestState = null;
+
+      if("state" in ratAuth.req) {
+        requestState = ratAuth.req.state;
+      } else {
+        requestState = ratAuth.res.state;
+      }
+
       if (ratAuth.req.state == ratAuth.res.state) {
         if ("undefined" !== typeof ratAuth.res.error) {
           win.loadURL(

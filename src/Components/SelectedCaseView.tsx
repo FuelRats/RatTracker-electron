@@ -8,7 +8,6 @@ class SelectedCaseView extends React.Component<RatDataProps> {
   constructor(props: RatDataProps) {
     super(props);
     autorun(() => {
-      console.log(this.props.store.selectedRescue);
       this.fetchRescueInfo(this.props.store.selectedRescue);
     });
   }
@@ -17,7 +16,6 @@ class SelectedCaseView extends React.Component<RatDataProps> {
 
   fetchRescueInfo(rescueId: string) {
     if (!rescueId) {
-      console.log("No rescue selected");
       this.selectedRescue = null;
     } else {
       if (!!this.props.store.rescues[rescueId]) {
@@ -43,7 +41,13 @@ class SelectedCaseView extends React.Component<RatDataProps> {
               </tr>
               <tr>
                 <td>System:</td>
-                <td onClick={e => copySystemName(this.selectedRescue.attributes.system, e)}>{this.selectedRescue.attributes.system}</td>
+                <td
+                  onClick={(e) =>
+                    copySystemName(this.selectedRescue.attributes.system, e)
+                  }
+                >
+                  {this.selectedRescue.attributes.system}
+                </td>
               </tr>
               <tr>
                 <td>Status:</td>
@@ -88,8 +92,8 @@ class SelectedCaseView extends React.Component<RatDataProps> {
             </tbody>
           </table>
         ) : (
-            <i>No rescue selected</i>
-          )}
+          <i>No rescue selected</i>
+        )}
       </div>
     );
   }
