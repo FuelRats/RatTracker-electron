@@ -119,8 +119,6 @@ export class RatSocket extends RatEmitter {
       this.openRequests[_data[0]](_data);
       delete this.openRequests[_data[0]];
     } else if (_data[0]) {
-      console.log("Possible event", _data[0]);
-      console.log("All data", _data);
       this._emitEvent(_data[0], _data);
     } else {
       window.console.warn(_data);

@@ -130,8 +130,6 @@ function createWindow() {
 
       var requestState = null;
 
-      console.log(ratAuth);
-
       if("state" in ratAuth.req) {
         requestState = ratAuth.req.state;
       } else {

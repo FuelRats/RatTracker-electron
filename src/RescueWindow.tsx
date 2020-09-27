@@ -41,27 +41,21 @@ class RescueWindow extends React.Component<
     this.ratSocket
       .on("ratsocket:connect", async () => await this.loadInitialData())
       .on("fuelrats.rescuecreate", (data: any) => {
-        console.log("create", data);
         this.updateRescues(data);
       })
       .on("fuelrats.rescueupdate", (data: any) => {
-        console.log("update", data);
         this.updateRescues(data);
       })
       .on("fuelrats.rescuedelete", (data: any) => {
-        console.log("delete", data);
         this.updateRescues(data);
       })
       .on("rattracker.friendrequest", (data: any) => {
-        console.log("friend", data);
         this.updateRescues(data);
       })
       .on("rattracker.wingrequest", (data: any) => {
-        console.log("wing", data);
         this.updateRescues(data);
       })
       .on("rattracker.systemreached", (data: any) => {
-        console.log("system", data);
         this.updateRescues(data);
       });
   }
