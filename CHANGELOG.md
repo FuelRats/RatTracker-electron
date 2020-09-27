@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/FuelRats/RatTracker-electron/compare/v0.1.15...v1.1.0) (2020-09-27)
+
+
+### Features
+
+* Re-enabled darwin and linux targets, in case you want a board on a separate device. ([5725336](https://github.com/FuelRats/RatTracker-electron/commit/5725336bb7454812c57bb4722c351c7c08c47b9e))
+* **api:** Updated to APIv3 compatibility ([9848d5a](https://github.com/FuelRats/RatTracker-electron/commit/9848d5a34f7d690cc26b7a73ff1f4cd7b6dc4c2a))
+* Think I got it working properly now. ([aeaecee](https://github.com/FuelRats/RatTracker-electron/commit/aeaeceed91e9dd5b798908c0c4cd15f317c315e3))
+
 ### [0.1.15](https://github.com/FuelRats/RatTracker-electron/compare/v0.1.14...v0.1.15) (2020-05-10)
 
 
