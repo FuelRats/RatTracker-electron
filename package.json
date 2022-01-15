@@ -20,18 +20,6 @@
   "description": "A tool to help the Rats of Fuel Rats to save clients",
   "private": true,
   "homepage": "./",
-  "dependencies": {
-    "electron-log": "^4.1.2",
-    "electron-updater": "^4.3.1",
-    "mobx": "^5.15.4",
-    "mobx-react": "^5.4.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-hot-loader": "^4.12.21",
-    "react-router-dom": "^5.1.2",
-    "react-scripts-ts": "^3.1.0",
-    "tail": "^2.0.3"
-  },
   "main": "src/rattracker-electron.js",
   "scripts": {
     "start": "react-scripts-ts start",
@@ -75,6 +63,18 @@
       "releaseType": "release"
     }
   },
+  "dependencies": {
+    "electron-log": "^4.1.2",
+    "electron-updater": "^4.3.1",
+    "mobx": "^5.15.4",
+    "mobx-react": "^5.4.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-hot-loader": "^4.12.21",
+    "react-router-dom": "^5.1.2",
+    "react-scripts-ts": "^3.1.0",
+    "tail": "^2.0.3"
+  },
   "devDependencies": {
     "@types/jest": "^25.2.1",
     "@types/node": "^12.0.0",
@@ -98,17 +98,22 @@
   "resolutions": {
     "braces": "^3.0.2",
     "js-yaml": "^3.13.1",
-    "urijs": "^1.19.6",
+    "urijs": "^1.19.7",
+    "shelljs": "^0.8.5",
     "mem": "^6.1.0",
+    "path-parse": "^1.0.7",
     "serialize-javascript": "^3.1.0",
     "webpack-dev-server": "^2.11.4",
     "yargs-parser": "^18.1.3",
     "websocket-extensions": "^0.1.4",
     "http-proxy": "^1.18.1",
     "lodash": "^4.17.19",
-    "elliptic": "^6.5.3",
+    "elliptic": "^6.5.4",
     "dot-prop": "^5.1.1",
     "ini": "^2.0.0",
-    "node-forge": "0.10.0"
+    "node-forge": "0.10.0",
+    "follow-redirects": "1.14.7",
+    "dns-packet": "1.3.4",
+    "tmpl": "1.0.5"
   }
 }
